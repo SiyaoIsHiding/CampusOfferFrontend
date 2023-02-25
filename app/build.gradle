@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -15,6 +16,11 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    // View binding is a feature that allows you to more easily write code that interacts with views.
+    buildFeatures {
+        viewBinding = true
     }
 
     buildTypes {
@@ -35,7 +41,7 @@ android {
 dependencies {
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.4.10"
+//    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.4.10"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     implementation 'androidx.core:core-ktx:1.7.0'
