@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/shopFragment"
+        android:title="@string/shop_fragment"
+        android:icon="@drawable/ic_shopping"/>
+
+    <item android:id="@+id/favoriteFragment"
+        android:title="@string/favorite_fragment"
+        android:icon="@drawable/ic_star"/>
+
+    <item android:id="@+id/sellFragment"
+        android:title="@string/sell_fragment"
+        android:icon="@drawable/ic_sell_store"/>
+
+    <item android:id="@+id/profileFragment"
+        android:title="@string/profile_fragment"
+        android:icon="@drawable/ic_person"/>
+
+</menu>

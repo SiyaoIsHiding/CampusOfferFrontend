@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">CampusOffer</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="shop_fragment">Shop</string>
+    <string name="favorite_fragment">Favorite</string>
+    <string name="sell_fragment">Sell</string>
+    <string name="profile_fragment">Profile</string>
+</resources>
