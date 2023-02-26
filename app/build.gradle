@@ -112,4 +112,7 @@ dependencies {
     // Jsoup
     implementation 'org.jsoup:jsoup:1.13.1'
 
+    // Network Logging
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+
 }

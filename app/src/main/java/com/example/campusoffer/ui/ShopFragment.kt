@@ -1,12 +1,12 @@
-package com.example.campusoffer
+package com.example.campusoffer.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.campusoffer.R
 //import com.example.campusoffer.databinding.FragmentShopBinding
-import com.todkars.shimmer.ShimmerRecyclerView
 
 /**
  * Reference
@@ -27,7 +27,8 @@ class ShopFragment : Fragment() {
 //        _binding = FragmentShopBinding.inflate(inflater, container, false)
 //        val view = binding.root
 //        _binding!!.shimmerRecyclerView.showShimmer()
-        return inflater.inflate(R.layout.fragment_shop, container,false)
+        val view = inflater.inflate(R.layout.fragment_shop, container,false)
+        return view
     }
 
 }
