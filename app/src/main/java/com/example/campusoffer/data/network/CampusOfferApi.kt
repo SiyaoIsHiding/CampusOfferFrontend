@@ -1,5 +1,6 @@
 package com.example.campusoffer.data.network
 
+import com.example.campusoffer.models.Product
 import com.example.campusoffer.models.responses.ProductsUnderCategory
 import retrofit2.Response
 import retrofit2.http.GET
@@ -11,7 +12,15 @@ interface CampusOfferApi {
      * {{host}}/products?category_id=699387fd-b0e9-11ed-a0a9-00224829ee55
      */
     @GET("/products")
-    suspend fun getProductUnderCategory(
+    suspend fun getProductsUnderCategory(
         @QueryMap queries: Map<String, String>
     ): Response<ProductsUnderCategory>
+
+    /**
+     * {{host}}/product?id=92c6ebb6-b0ca-11ed-a0a9-00224829ee55
+     */
+    @GET("/product")
+    suspend fun getProductByID(
+        @QueryMap queries: Map<String, String>
+    ): Response<Product>
 }
