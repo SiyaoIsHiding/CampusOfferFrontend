@@ -12,6 +12,7 @@ import com.example.campusoffer.util.Constants.Companion.CATEGORY_ROOT_ID
 import com.example.campusoffer.util.Constants.Companion.PRODUCT_TEST_ID
 import com.example.campusoffer.util.Constants.Companion.QUERY_CATEGORY_ID
 import com.example.campusoffer.util.Constants.Companion.QUERY_ID
+import com.example.campusoffer.util.Constants.Companion.USER_TEST_ID
 import com.example.campusoffer.util.NetworkResult
 import com.example.campusoffer.viewmodels.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,7 +37,7 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_profile, container, false)
 
-        //region get products under category
+//region get products under category
 //        val queryMap = HashMap<String, String>()
 //        queryMap.put(QUERY_CATEGORY_ID, CATEGORY_ROOT_ID)
 //        profileViewModel.getProductsUnderCategory(queryMap)
@@ -62,7 +63,7 @@ class ProfileFragment : Fragment() {
 //                }
 //            }
 //        })
-        //endregion
+//endregion
 
 //region get product by id
 //        val queryMap = HashMap<String, String>()
@@ -93,16 +94,46 @@ class ProfileFragment : Fragment() {
 //endregion
 
 //region get subcategory
+//        val queryMap = HashMap<String, String>()
+//        queryMap.put(QUERY_ID, CATEGORY_ROOT_ID)
+//
+//        profileViewModel.getSubCategory(queryMap)
+//
+//
+//        profileViewModel.subCategoryRes.observe(viewLifecycleOwner, { response ->
+//            when(response){
+//                is NetworkResult.Success -> {
+//                    response.data?.let { mView.textView2.text = it.subcategory[0].toString() + it.subcategory[1].toString()}
+//                }
+//                is NetworkResult.Error -> {
+//                    Toast.makeText(
+//                        requireContext(),
+//                        response.message.toString(),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//                is NetworkResult.Loading -> {
+//                    Toast.makeText(
+//                        requireContext(),
+//                        response.message.toString(),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//            }
+//        })
+//endregion
+
+//region get user by id
         val queryMap = HashMap<String, String>()
-        queryMap.put(QUERY_ID, CATEGORY_ROOT_ID)
+        queryMap.put(QUERY_ID, USER_TEST_ID)
 
-        profileViewModel.getSubCategory(queryMap)
+        profileViewModel.getUserByID(queryMap)
 
 
-        profileViewModel.subCategoryRes.observe(viewLifecycleOwner, { response ->
+        profileViewModel.userRes.observe(viewLifecycleOwner, { response ->
             when(response){
                 is NetworkResult.Success -> {
-                    response.data?.let { mView.textView2.text = it.subcategory[0].toString() + it.subcategory[1].toString()}
+                    response.data?.let { mView.textView2.text = it.firstName}
                 }
                 is NetworkResult.Error -> {
                     Toast.makeText(
@@ -121,6 +152,37 @@ class ProfileFragment : Fragment() {
             }
         })
 //endregion
+
+//region get category by id
+//        val queryMap = HashMap<String, String>()
+//        queryMap.put(QUERY_ID, CATEGORY_ROOT_ID)
+//
+//        profileViewModel.getCategory(queryMap)
+//
+//
+//        profileViewModel.categoryRes.observe(viewLifecycleOwner, { response ->
+//            when(response){
+//                is NetworkResult.Success -> {
+//                    response.data?.let { mView.textView2.text = it.name}
+//                }
+//                is NetworkResult.Error -> {
+//                    Toast.makeText(
+//                        requireContext(),
+//                        response.message.toString(),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//                is NetworkResult.Loading -> {
+//                    Toast.makeText(
+//                        requireContext(),
+//                        response.message.toString(),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//            }
+//        })
+//endregion
+
         return mView
     }
 
