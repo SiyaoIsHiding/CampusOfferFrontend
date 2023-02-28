@@ -9,4 +9,16 @@
     <string name="filter1">Select Main Category</string>
     <string name="filter2">Select Sub Category</string>
     <string name="books">Books</string>
+    <string name="textbooks">Textbooks</string>
+    <string name="others">Others</string>
+    <string name="electronics">Electronics</string>
+    <string name="laptop">Laptop</string>
+    <string name="game_consoles">Game Consoles</string>
+    <string name="mobile">Mobile</string>
+    <string name="household_items">Household Items</string>
+    <string name="kitchenware">Kitchenware</string>
+    <string name="furniture">Furniture</string>
+    <string name="chair">Chair</string>
+    <string name="desk">Desk</string>
+    <string name="apply">Apply</string>
 </resources>
