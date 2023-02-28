@@ -7,7 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.campusoffer.data.ProductRepository
 import com.example.campusoffer.models.Product
-import com.example.campusoffer.models.responses.ProductsUnderCategory
+import com.example.campusoffer.models.responses.ProductsIdList
+import com.example.campusoffer.models.responses.SubCategory
 import com.example.campusoffer.util.NetworkResult
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -16,7 +17,7 @@ class ProfileViewModel @ViewModelInject constructor(
     private val repository: ProductRepository,
     application: Application) : AndroidViewModel(application) {
     //region products under category
-    var productsUnderCategoryRes: MutableLiveData<NetworkResult<ProductsUnderCategory>> = MutableLiveData()
+    var productsUnderCategoryRes: MutableLiveData<NetworkResult<ProductsIdList>> = MutableLiveData()
 
     fun getProductsUnderCategory(queries: Map<String, String>) = viewModelScope.launch {
         getProductsUnderCategorySafeCall(queries)
@@ -34,7 +35,7 @@ class ProfileViewModel @ViewModelInject constructor(
 
     }
 
-    private fun handleProductsUnderCategoryResponse(res: Response<ProductsUnderCategory>): NetworkResult<ProductsUnderCategory>{
+    private fun handleProductsUnderCategoryResponse(res: Response<ProductsIdList>): NetworkResult<ProductsIdList>{
         when {
             res.code() >= 500 -> {
                 return NetworkResult.Error("Server Internal Error")
@@ -97,4 +98,45 @@ class ProfileViewModel @ViewModelInject constructor(
         }
     }
     //endregion
-}
+
+    //region get sub category
+    var subCategoryRes: MutableLiveData<NetworkResult<SubCategory>> = MutableLiveData()
+
+    fun getSubCategory(queries: Map<String, String>) = viewModelScope.launch {
+        getSubCategorySafeCall(queries)
+    }
+
+    private suspend fun getSubCategorySafeCall(queries: Map<String, String>){
+        subCategoryRes.value = NetworkResult.Loading()
+
+        try {
+            val res = repository.remote.getSubCategory(queries)
+            subCategoryRes.value = handleSubCategoryResponse(res)
+        }catch (e: Exception){
+            subCategoryRes.value = NetworkResult.Error("No Internet Connection.")
+        }
+
+    }
+
+    private fun handleSubCategoryResponse(res: Response<SubCategory>): NetworkResult<SubCategory>{
+        when {
+            res.code() >= 500 -> {
+                return NetworkResult.Error("Server Internal Error")
+            }
+
+            res.code() >= 400 -> {
+                return NetworkResult.Error("Server Error")
+            }
+
+            res.isSuccessful -> {
+                return NetworkResult.Success(res.body()!!)
+            }
+
+            else -> {
+                return NetworkResult.Error(res.message())
+            }
+        }
+    }
+    //endregion
+
+    }
