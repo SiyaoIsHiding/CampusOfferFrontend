@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">CampusOffer</string>
+    <string name="google_backend_client_id">424300706933-2t99cdia48nhq4oq893jabv6ffc0u528.apps.googleusercontent.com</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="shop_fragment">Shop</string>
     <string name="favorite_fragment">Favorite</string>
