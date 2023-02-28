@@ -95,7 +95,9 @@ class ProfileFragment : Fragment() {
 //region get subcategory
         val queryMap = HashMap<String, String>()
         queryMap.put(QUERY_ID, CATEGORY_ROOT_ID)
+
         profileViewModel.getSubCategory(queryMap)
+
 
         profileViewModel.subCategoryRes.observe(viewLifecycleOwner, { response ->
             when(response){
