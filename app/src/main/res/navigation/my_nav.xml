@@ -9,7 +9,11 @@
         android:id="@+id/shopFragment"
         android:name="com.example.campusoffer.ui.ShopFragment"
         android:label="CampusOffer"
-        tools:layout="@layout/fragment_shop" />
+        tools:layout="@layout/fragment_shop" >
+        <action
+            android:id="@+id/action_shopFragment_to_filterBottomSheet"
+            app:destination="@id/filterBottomSheet" />
+    </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="com.example.campusoffer.ui.FavoriteFragment"
@@ -25,4 +29,13 @@
         android:name="com.example.campusoffer.ui.ProfileFragment"
         android:label="CampusOffer"
         tools:layout="@layout/fragment_profile" />
+    <dialog
+        android:id="@+id/filterBottomSheet"
+        android:name="com.example.campusoffer.ui.FilterBottomSheet"
+        android:label="fragment_filter_bottom_sheet"
+        tools:layout="@layout/fragment_filter_bottom_sheet" >
+        <action
+            android:id="@+id/action_filterBottomSheet_to_shopFragment"
+            app:destination="@id/shopFragment" />
+    </dialog>
 </navigation>
