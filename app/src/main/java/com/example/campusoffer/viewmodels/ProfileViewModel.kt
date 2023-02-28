@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.campusoffer.data.ProductRepository
 import com.example.campusoffer.models.Product
-import com.example.campusoffer.models.responses.ProductsUnderCategory
+import com.example.campusoffer.models.responses.ProductsIdList
 import com.example.campusoffer.util.NetworkResult
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -16,7 +16,7 @@ class ProfileViewModel @ViewModelInject constructor(
     private val repository: ProductRepository,
     application: Application) : AndroidViewModel(application) {
     //region products under category
-    var productsUnderCategoryRes: MutableLiveData<NetworkResult<ProductsUnderCategory>> = MutableLiveData()
+    var productsUnderCategoryRes: MutableLiveData<NetworkResult<ProductsIdList>> = MutableLiveData()
 
     fun getProductsUnderCategory(queries: Map<String, String>) = viewModelScope.launch {
         getProductsUnderCategorySafeCall(queries)
@@ -34,7 +34,7 @@ class ProfileViewModel @ViewModelInject constructor(
 
     }
 
-    private fun handleProductsUnderCategoryResponse(res: Response<ProductsUnderCategory>): NetworkResult<ProductsUnderCategory>{
+    private fun handleProductsUnderCategoryResponse(res: Response<ProductsIdList>): NetworkResult<ProductsIdList>{
         when {
             res.code() >= 500 -> {
                 return NetworkResult.Error("Server Internal Error")
