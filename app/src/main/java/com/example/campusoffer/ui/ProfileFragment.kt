@@ -1,20 +1,24 @@
 package com.example.campusoffer.ui
 
+import android.content.Intent
+import android.content.IntentSender.SendIntentException
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.campusoffer.R
-import com.example.campusoffer.util.Constants.Companion.CATEGORY_ROOT_ID
-import com.example.campusoffer.util.Constants.Companion.PRODUCT_TEST_ID
-import com.example.campusoffer.util.Constants.Companion.QUERY_CATEGORY_ID
-import com.example.campusoffer.util.Constants.Companion.QUERY_ID
-import com.example.campusoffer.util.Constants.Companion.USER_TEST_ID
-import com.example.campusoffer.util.NetworkResult
 import com.example.campusoffer.viewmodels.ProfileViewModel
+import com.google.android.gms.auth.api.identity.BeginSignInRequest
+import com.google.android.gms.auth.api.identity.BeginSignInResult
+import com.google.android.gms.auth.api.identity.Identity
+import com.google.android.gms.auth.api.identity.SignInClient
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.common.api.CommonStatusCodes
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 
@@ -24,11 +28,28 @@ class ProfileFragment : Fragment() {
 
     private lateinit var profileViewModel: ProfileViewModel
     private lateinit var mView: View
+    private val TAG = "Profile Fragment"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         profileViewModel = ViewModelProvider(requireActivity()).get(ProfileViewModel::class.java)
+
     }
+
+//
+//    private fun Any.addOnFailureListener(profileFragment: ProfileFragment, any: Any) {
+//        Log.v(TAG, "failure listener")
+//    }
+//
+//    private fun <TResult> Task<TResult>.addOnSuccessListener(
+//        profileFragment: ProfileFragment,
+//        any: Any
+//    ): Any {
+//        Log.v(TAG, "success listener")
+//        return any
+//    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -124,33 +145,33 @@ class ProfileFragment : Fragment() {
 //endregion
 
 //region get user by id
-        val queryMap = HashMap<String, String>()
-        queryMap.put(QUERY_ID, USER_TEST_ID)
-
-        profileViewModel.getUserByID(queryMap)
-
-
-        profileViewModel.userRes.observe(viewLifecycleOwner, { response ->
-            when(response){
-                is NetworkResult.Success -> {
-                    response.data?.let { mView.textView2.text = it.firstName}
-                }
-                is NetworkResult.Error -> {
-                    Toast.makeText(
-                        requireContext(),
-                        response.message.toString(),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-                is NetworkResult.Loading -> {
-                    Toast.makeText(
-                        requireContext(),
-                        response.message.toString(),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        })
+//        val queryMap = HashMap<String, String>()
+//        queryMap.put(QUERY_ID, USER_TEST_ID)
+//
+//        profileViewModel.getUserByID(queryMap)
+//
+//
+//        profileViewModel.userRes.observe(viewLifecycleOwner, { response ->
+//            when(response){
+//                is NetworkResult.Success -> {
+//                    response.data?.let { mView.textView2.text = it.firstName}
+//                }
+//                is NetworkResult.Error -> {
+//                    Toast.makeText(
+//                        requireContext(),
+//                        response.message.toString(),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//                is NetworkResult.Loading -> {
+//                    Toast.makeText(
+//                        requireContext(),
+//                        response.message.toString(),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//            }
+//        })
 //endregion
 
 //region get category by id
