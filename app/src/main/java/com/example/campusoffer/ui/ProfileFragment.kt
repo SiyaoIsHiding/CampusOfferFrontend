@@ -64,14 +64,43 @@ class ProfileFragment : Fragment() {
 //        })
         //endregion
 
-        val queryMap = HashMap<String, String>()
-        queryMap.put(QUERY_ID, PRODUCT_TEST_ID)
-        profileViewModel.getProductByID(queryMap)
+//region get product by id
+//        val queryMap = HashMap<String, String>()
+//        queryMap.put(QUERY_ID, PRODUCT_TEST_ID)
+//        profileViewModel.getProductByID(queryMap)
+//
+//        profileViewModel.productByIDRes.observe(viewLifecycleOwner, { response ->
+//            when(response){
+//                is NetworkResult.Success -> {
+//                    response.data?.let { mView.textView2.text = it.description}
+//                }
+//                is NetworkResult.Error -> {
+//                    Toast.makeText(
+//                        requireContext(),
+//                        response.message.toString(),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//                is NetworkResult.Loading -> {
+//                    Toast.makeText(
+//                        requireContext(),
+//                        response.message.toString(),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//            }
+//        })
+//endregion
 
-        profileViewModel.productByIDRes.observe(viewLifecycleOwner, { response ->
+//region get subcategory
+        val queryMap = HashMap<String, String>()
+        queryMap.put(QUERY_ID, CATEGORY_ROOT_ID)
+        profileViewModel.getSubCategory(queryMap)
+
+        profileViewModel.subCategoryRes.observe(viewLifecycleOwner, { response ->
             when(response){
                 is NetworkResult.Success -> {
-                    response.data?.let { mView.textView2.text = it.description}
+                    response.data?.let { mView.textView2.text = it.subcategory[0].toString() + it.subcategory[1].toString()}
                 }
                 is NetworkResult.Error -> {
                     Toast.makeText(
@@ -89,7 +118,7 @@ class ProfileFragment : Fragment() {
                 }
             }
         })
-
+//endregion
         return mView
     }
 

@@ -1,7 +1,8 @@
 package com.example.campusoffer.data.network
 
 import com.example.campusoffer.models.Product
-import com.example.campusoffer.models.responses.ProductsUnderCategory
+import com.example.campusoffer.models.responses.ProductsIdList
+import com.example.campusoffer.models.responses.SubCategory
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.QueryMap
@@ -14,7 +15,7 @@ interface CampusOfferApi {
     @GET("/products")
     suspend fun getProductsUnderCategory(
         @QueryMap queries: Map<String, String>
-    ): Response<ProductsUnderCategory>
+    ): Response<ProductsIdList>
 
     /**
      * {{host}}/product?id=92c6ebb6-b0ca-11ed-a0a9-00224829ee55
@@ -23,4 +24,13 @@ interface CampusOfferApi {
     suspend fun getProductByID(
         @QueryMap queries: Map<String, String>
     ): Response<Product>
+
+    /**
+     * {{host}}/subcategory?id=00000000-0000-0000-0000-00000000000
+     */
+    @GET("/subcategory")
+    suspend fun getSubCategory(
+        @QueryMap queries: Map<String, String>
+    ): Response<SubCategory>
+
 }
