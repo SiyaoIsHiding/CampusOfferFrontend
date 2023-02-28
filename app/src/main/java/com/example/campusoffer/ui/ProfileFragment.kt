@@ -65,7 +65,7 @@ class ProfileFragment : Fragment() {
         //endregion
 
         val queryMap = HashMap<String, String>()
-        queryMap.put(QUERY_ID, PRODUCT_TEST_ID)
+        queryMap.put(QUERY_ID, CATEGORY_ROOT_ID)
         profileViewModel.getProductByID(queryMap)
 
         profileViewModel.productByIDRes.observe(viewLifecycleOwner, { response ->

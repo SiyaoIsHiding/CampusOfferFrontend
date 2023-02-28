@@ -5,4 +5,7 @@
     <string name="favorite_fragment">Favorite</string>
     <string name="sell_fragment">Sell</string>
     <string name="profile_fragment">Profile</string>
+    <string name="filter1">Select Main Category</string>
+    <string name="filter2">Select Sub Category</string>
+    <string name="books">Books</string>
 </resources>
