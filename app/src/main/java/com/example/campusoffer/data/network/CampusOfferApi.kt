@@ -2,6 +2,7 @@ package com.example.campusoffer.data.network
 
 import com.example.campusoffer.models.Product
 import com.example.campusoffer.models.responses.ProductsIdList
+import com.example.campusoffer.models.responses.SubCategory
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.QueryMap
@@ -23,4 +24,13 @@ interface CampusOfferApi {
     suspend fun getProductByID(
         @QueryMap queries: Map<String, String>
     ): Response<Product>
+
+    /**
+     * {{host}}/subcategory?id=00000000-0000-0000-0000-00000000000
+     */
+    @GET("/subcategory")
+    suspend fun getSubCategory(
+        @QueryMap queries: Map<String, String>
+    ): Response<SubCategory>
+
 }

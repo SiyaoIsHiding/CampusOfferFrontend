@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.campusoffer.data.network.CampusOfferApi
 import com.example.campusoffer.models.Product
 import com.example.campusoffer.models.responses.ProductsIdList
+import com.example.campusoffer.models.responses.SubCategory
 import com.example.campusoffer.util.Constants.Companion.QUERY_CATEGORY_ID
 import com.example.campusoffer.util.Constants.Companion.QUERY_ID
 import retrofit2.Response
@@ -25,5 +26,12 @@ class RemoteDataSource @Inject constructor(
             Log.e(DEBUG_TAG, "Mandatory queries parameter not found")
         }
         return campusOfferApi.getProductByID(queries)
+    }
+
+    suspend fun getSubCategory(queries: Map<String, String> ): Response<SubCategory>{
+        if (queries.containsKey(QUERY_ID)){
+            Log.e(DEBUG_TAG, "Mandatory queries parameter not found")
+        }
+        return campusOfferApi.getSubCategory(queries)
     }
 }
