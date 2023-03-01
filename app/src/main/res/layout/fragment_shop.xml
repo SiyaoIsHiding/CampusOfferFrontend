@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/lightGray"
-        tools:context=".ui.ShopFragment">
+        tools:context=".ui.fragments.ShopFragment">
 
         <com.todkars.shimmer.ShimmerRecyclerView
             android:id="@+id/shimmer_recycler_view"
