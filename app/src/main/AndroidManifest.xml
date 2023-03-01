@@ -15,9 +15,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CampusOffer">
         <activity
+            android:name=".ui.DetailsActivity"
+            android:label="Details"
+            android:theme="@style/DetailsActivityStyle"
+            android:exported="false" />
+        <activity
             android:name=".ui.MainActivity"
-            android:screenOrientation="portrait"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,4 +1,4 @@
-package com.example.campusoffer.ui
+package com.example.campusoffer.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
