@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/shopFragment"
-        android:name="com.example.campusoffer.ui.ShopFragment"
+        android:name="com.example.campusoffer.ui.fragments.ShopFragment"
         android:label="CampusOffer"
         tools:layout="@layout/fragment_shop" >
         <action
@@ -16,17 +16,17 @@
     </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
-        android:name="com.example.campusoffer.ui.FavoriteFragment"
+        android:name="com.example.campusoffer.ui.fragments.FavoriteFragment"
         android:label="CampusOffer"
         tools:layout="@layout/fragment_favorite" />
     <fragment
         android:id="@+id/sellFragment"
-        android:name="com.example.campusoffer.ui.SellFragment"
+        android:name="com.example.campusoffer.ui.fragments.SellFragment"
         android:label="CampusOffer"
         tools:layout="@layout/fragment_sell" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.campusoffer.ui.ProfileFragment"
+        android:name="com.example.campusoffer.ui.fragments.ProfileFragment"
         android:label="CampusOffer"
         tools:layout="@layout/fragment_profile" />
     <dialog
