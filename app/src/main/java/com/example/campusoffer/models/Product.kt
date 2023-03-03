@@ -1,8 +1,11 @@
 package com.example.campusoffer.models
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Product(
     @SerializedName("category_id")
     val categoryId: String,
@@ -22,4 +25,4 @@ data class Product(
     val sellerId: String,
     @SerializedName("title")
     val title: String
-)
+) : Parcelable
