@@ -2,17 +2,18 @@ package com.example.campusoffer.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.campusoffer.databinding.ProductRowBinding
+import com.example.campusoffer.databinding.SellProductRowBinding
 import com.example.campusoffer.models.Product
 import com.example.campusoffer.util.ProductListDiffUtil
 
-class ProductsAdapter:RecyclerView.Adapter<ProductsAdapter.MyViewHolder>() {
+class SellsAdapter : RecyclerView.Adapter<SellsAdapter.MyViewHolder>() {
 
     private var productList = emptyList<Product>()
 
-    class MyViewHolder(private val binding: ProductRowBinding):
+    class MyViewHolder(private val binding: SellProductRowBinding):
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(product : Product){
@@ -23,7 +24,7 @@ class ProductsAdapter:RecyclerView.Adapter<ProductsAdapter.MyViewHolder>() {
         companion object {
             fun from(parent: ViewGroup): MyViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ProductRowBinding.inflate(layoutInflater, parent, false)
+                val binding = SellProductRowBinding.inflate(layoutInflater, parent, false)
                 return MyViewHolder(binding)
             }
         }
