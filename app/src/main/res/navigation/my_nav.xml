@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_shopFragment_to_filterBottomSheet"
             app:destination="@id/filterBottomSheet" />
+        <action
+            android:id="@+id/action_shopFragment_to_detailsActivity"
+            app:destination="@id/detailsActivity" />
     </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
@@ -38,4 +41,13 @@
             android:id="@+id/action_filterBottomSheet_to_shopFragment"
             app:destination="@id/shopFragment" />
     </dialog>
+    <activity
+        android:id="@+id/detailsActivity"
+        android:name="com.example.campusoffer.ui.DetailsActivity"
+        android:label="Details"
+        tools:layout="@layout/activity_details" >
+        <argument
+            android:name="product"
+            app:argType="com.example.campusoffer.models.Product" />
+    </activity>
 </navigation>
