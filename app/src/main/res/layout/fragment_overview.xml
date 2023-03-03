@@ -20,14 +20,13 @@
         android:id="@+id/detail_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="12dp"
         android:text="Title"
+        android:layout_marginEnd="12dp"
         android:textColor="@color/darkGray"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_imageView" />
 
@@ -35,44 +34,39 @@
         android:id="@+id/detail_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="12dp"
         android:text="Price"
+        android:layout_marginEnd="12dp"
         android:textColor="@color/mediumGray"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/detail_title"
         app:layout_constraintTop_toBottomOf="@+id/detail_title" />
 
     <TextView
         android:id="@+id/detail_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
         android:text="Description"
+        android:layout_marginEnd="16dp"
         android:textColor="@color/darkGray"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/detail_price"
         app:layout_constraintTop_toBottomOf="@+id/detail_price" />
 
     <TextView
         android:id="@+id/detail_seller"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="12dp"
         android:text="Seller information"
         android:textColor="@color/mediumGray"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/detail_description"
         app:layout_constraintTop_toBottomOf="@+id/detail_description" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

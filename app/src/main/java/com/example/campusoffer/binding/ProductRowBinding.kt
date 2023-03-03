@@ -1,5 +1,6 @@
 package com.example.campusoffer.binding
 
+import android.app.Notification.Action
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
@@ -7,9 +8,11 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import com.example.campusoffer.R
 import com.example.campusoffer.models.Product
+import com.example.campusoffer.ui.fragments.FavoriteFragmentDirections
 import com.example.campusoffer.ui.fragments.ShopFragmentDirections
 
 class ProductRowBinding {
@@ -30,6 +33,24 @@ class ProductRowBinding {
                 }
             }
         }
+
+        @BindingAdapter("onProductClickListenerFavorite")
+        @JvmStatic
+        fun onProductClickListenerFavorite(favoriteRowLayout: ConstraintLayout, product: Product) {
+            Log.d("onProductClickListener", "CALLED")
+            favoriteRowLayout.setOnClickListener {
+                try {
+                    val action =
+                        FavoriteFragmentDirections.actionFavoriteFragmentToDetailsActivity(product)
+                    favoriteRowLayout.findNavController().navigate(action)
+                } catch (e: Exception) {
+                    Log.d("onProductClickListener", e.toString())
+                }
+            }
+        }
+
+
+
 
 //        @BindingAdapter("loadImageFromUrl")
 //        @JvmStatic
