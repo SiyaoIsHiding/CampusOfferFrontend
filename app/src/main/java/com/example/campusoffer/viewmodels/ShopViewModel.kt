@@ -26,7 +26,7 @@ class ShopViewModel {
             "A fully working chair. Bought in March last year.",
             "92c6ebb6-b0ca-11ed-a0a9-00224829ee55",
             image,
-            0,
+            1,
             29.9,
             "fcda1dda-5b3b-4c6c-88a7-46521d132015",
             "An office chair at Verano Place"
@@ -35,13 +35,37 @@ class ShopViewModel {
             "41859207-5471-4223-b01c-e566d506c799",
             "0301",
             "A fully working chair. Bought in March last year.",
-            "92c6ebb6-b0ca-11ed-a0a9-00224829ee55",
+            "92c6ebb6-b0ca-11ed-a0a9-00224829ee56",
             image,
-            1,
+            0,
             29.9,
             "fcda1dda-5b3b-4c6c-88a7-46521d132015",
             "An office chair at Verano Place"
         )
-        return listOf(product1, product2, product1, product1)
+
+        val product3: Product = Product(
+            "41859207-5471-4223-b01c-e566d506c799",
+            "0301",
+            "A fully working chair. Bought in March last year.",
+            "92c6ebb6-b0ca-11ed-a0a9-00224829ee57",
+            image,
+            0,
+            29.9,
+            "fcda1dda-5b3b-4c6c-88a7-46521d132015",
+            "An office chair at Verano Place"
+        )
+
+        val product4: Product = Product(
+            "41859207-5471-4223-b01c-e566d506c799",
+            "0301",
+            "A fully working chair. Bought in March last year.",
+            "92c6ebb6-b0ca-11ed-a0a9-00224829ee58",
+            image,
+            0,
+            29.9,
+            "fcda1dda-5b3b-4c6c-88a7-46521d132015",
+            "An office chair at Verano Place"
+        )
+        return listOf(product1, product2, product3, product4)
     }
 }

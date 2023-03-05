@@ -26,7 +26,6 @@ class OverviewFragment : Fragment() {
         view.detail_description.text = myBundle?.description
 
 
-
         return view
     }
 
