@@ -30,9 +30,8 @@ class ShopFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        shopViewModel = ShopViewModel();
+        shopViewModel = ShopViewModel()
     }
-
 
 
     override fun onCreateView(
