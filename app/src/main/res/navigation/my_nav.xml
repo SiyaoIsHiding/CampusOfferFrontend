@@ -30,7 +30,11 @@
         android:id="@+id/sellFragment"
         android:name="com.example.campusoffer.ui.fragments.SellFragment"
         android:label="CampusOffer"
-        tools:layout="@layout/fragment_sell" />
+        tools:layout="@layout/fragment_sell" >
+        <action
+            android:id="@+id/action_sellFragment_to_addNewProduct"
+            app:destination="@id/addNewProduct" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.campusoffer.ui.fragments.ProfileFragment"
@@ -54,4 +58,8 @@
             android:name="product"
             app:argType="com.example.campusoffer.models.Product" />
     </activity>
+    <fragment
+        android:id="@+id/addNewProduct"
+        android:name="com.example.campusoffer.ui.fragments.AddNewProduct"
+        android:label="AddNewProduct" />
 </navigation>

@@ -41,6 +41,10 @@ class SellFragment : Fragment() {
         setupRecyclerView()
         requestData()
 
+        binding.addNewProduct.setOnClickListener {
+            findNavController().navigate(R.id.action_sellFragment_to_addNewProduct)
+        }
+
         return mView
     }
 
