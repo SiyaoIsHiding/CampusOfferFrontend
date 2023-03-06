@@ -110,8 +110,8 @@ class MainActivity : AppCompatActivity() {
                         idToken != null -> {
                             // Got an ID token from Google. Use it to authenticate
                             // with your backend.
-                            Log.d(TAG, "Got ID token." + idToken)
-                            Log.d(TAG, "Got user name." + username)
+                            Log.d(TAG, "Got ID token: " + idToken)
+                            Log.d(TAG, "Got user name: " + username)
                         }
                         password != null -> {
                             // Got a saved username and password. Use them to authenticate
