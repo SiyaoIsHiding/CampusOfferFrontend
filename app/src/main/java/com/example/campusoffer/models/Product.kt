@@ -8,21 +8,21 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Product(
     @SerializedName("category_id")
-    val categoryId: String,
+    val categoryId: String?="",
     @SerializedName("create_date")
-    val createDate: String,
+    val createDate: String?="",
     @SerializedName("description")
-    val description: String,
+    val description: String?="",
     @SerializedName("id")
-    val id: String,
+    val id: String?="",
     @SerializedName("_images")
-    val _images: List<String>,
+    val _images: List<String>?,
     @SerializedName("is_sold")
-    val isSold: Int,
+    val isSold: Int?=0,
     @SerializedName("price")
-    val price: Double,
+    val price: Double?=0.0,
     @SerializedName("seller_id")
-    val sellerId: String,
+    val sellerId: String?="",
     @SerializedName("title")
-    val title: String
+    val title: String?="place holder title"
 ) : Parcelable

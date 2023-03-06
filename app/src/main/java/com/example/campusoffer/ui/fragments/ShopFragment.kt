@@ -14,12 +14,14 @@ import com.example.campusoffer.models.Product
 import com.example.campusoffer.util.Constants
 import com.example.campusoffer.viewmodels.ShopViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 /**
  * Reference
  * https://developer.android.com/topic/libraries/view-binding
  */
 
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class ShopFragment : Fragment() {
 
@@ -61,7 +63,9 @@ class ShopFragment : Fragment() {
         shopViewModel.getProductsList(queryMap)
         shopViewModel.productsList.observe(viewLifecycleOwner ){response ->
             when(response){
-                emptyList<Product>() -> {}
+                emptyList<Product>() -> {
+                    showShimmerEffect()
+                }
                 else -> {
                     mAdapter.setData(response as List<Product>)
                     hideShimmerEffect()
