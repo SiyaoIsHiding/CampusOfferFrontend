@@ -1,6 +1,5 @@
 package com.example.campusoffer.ui.fragments
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,14 +10,19 @@ import androidx.navigation.fragment.findNavController
 import com.example.campusoffer.R
 import com.example.campusoffer.adapters.ProductsAdapter
 import com.example.campusoffer.databinding.FragmentShopBinding
+import com.example.campusoffer.models.Product
+import com.example.campusoffer.util.Constants
 import com.example.campusoffer.viewmodels.ShopViewModel
-import kotlinx.android.synthetic.main.fragment_shop.view.*
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 /**
  * Reference
  * https://developer.android.com/topic/libraries/view-binding
  */
 
+@ExperimentalCoroutinesApi
+@AndroidEntryPoint
 class ShopFragment : Fragment() {
 
     // This property is only valid between onCreateView and onDestroyView.
@@ -28,9 +32,11 @@ class ShopFragment : Fragment() {
     private val mAdapter by lazy { ProductsAdapter() }
     private lateinit var mView: View
 
+    private val TAG = "ShopFragment"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        shopViewModel = ShopViewModel()
+        shopViewModel = ViewModelProvider(requireActivity()).get(ShopViewModel::class.java)
     }
 
 
@@ -51,14 +57,44 @@ class ShopFragment : Fragment() {
     }
 
     private fun requestData() {
-        val productListData = shopViewModel.applyHardCodeData();
-        if( productListData != null) {
-            hideShimmerEffect()
-            mAdapter.setData(productListData)
-            Log.d("productList", productListData.toString())
-        } else {
-            showShimmerEffect()
+        val queryMap = HashMap<String, String>()
+        queryMap.put(Constants.QUERY_CATEGORY_ID, Constants.CATEGORY_ROOT_ID) //TODO: hard code category id
+        shopViewModel.getProductsList(queryMap)
+        shopViewModel.productsList.observe(viewLifecycleOwner ){response ->
+            when(response){
+                emptyList<Product>() -> {
+                    showShimmerEffect()
+                }
+                else -> {
+                    mAdapter.setData(response as List<Product>)
+                    hideShimmerEffect()
+                }
+            }
+
+
         }
+//        shopViewModel.getProductsUnderCategory(queryMap);
+//        shopViewModel.productsUnderCategoryRes.observe(viewLifecycleOwner) { response ->
+//            when(response){
+//                is NetworkResult.Success -> {
+//                    Log.v(TAG, response.data?.productId.toString())
+//                }
+//                is NetworkResult.Error -> {
+//                    Toast.makeText(
+//                        requireContext(),
+//                        response.message.toString(),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//                is NetworkResult.Loading -> {
+//                    Toast.makeText(
+//                        requireContext(),
+//                        response.message.toString(),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//            }
+//        }
     }
 
     private fun setupRecyclerView() {

@@ -22,11 +22,11 @@ class ProductRowBinding {
         @BindingAdapter("onProductClickListener")
         @JvmStatic
         fun onProductClickListener(productRowLayout: ConstraintLayout, product: Product) {
-            Log.d("onProductClickListener", "CALLED")
             productRowLayout.setOnClickListener {
                 try {
                     val action =
                         ShopFragmentDirections.actionShopFragmentToDetailsActivity(product)
+                    Log.d("onProductClickListener", "CALLED")
                     productRowLayout.findNavController().navigate(action)
                 } catch (e: Exception) {
                     Log.d("onProductClickListener", e.toString())
