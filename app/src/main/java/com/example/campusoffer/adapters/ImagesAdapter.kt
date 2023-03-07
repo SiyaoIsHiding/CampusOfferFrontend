@@ -1,5 +1,6 @@
 package com.example.campusoffer.adapters
 
+import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -11,14 +12,14 @@ import com.example.campusoffer.databinding.ImageRowBinding
 
 class ImagesAdapter: RecyclerView.Adapter<ImagesAdapter.MyViewHolder>() {
 
-    private var imagesRrcList = emptyList<Int>()
+    private var imagesRrcList = emptyList<Bitmap>()
 
     class MyViewHolder(private val binding: ImageRowBinding):
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(imageRrc : Int){
+        fun bind(imageRrc : Bitmap){
             val imageView: ImageView = itemView.findViewById(R.id.images)
-            imageView.setImageResource(imageRrc)
+            imageView.setImageBitmap(imageRrc)
         }
 
         companion object {
@@ -47,7 +48,8 @@ class ImagesAdapter: RecyclerView.Adapter<ImagesAdapter.MyViewHolder>() {
     }
 
 
-    fun setData(newData: List<Int>){
+    fun setData(newData: List<Bitmap>){
+        // Diff Utils
         imagesRrcList = newData
     }
 }

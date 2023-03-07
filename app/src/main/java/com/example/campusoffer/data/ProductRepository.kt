@@ -48,9 +48,7 @@ class ProductRepository @Inject constructor(
         if (res.body() != null && !res.body()!!.image.isNullOrEmpty()) {
             var base64String = res.body()!!.image
             base64String = base64String!!.substring(base64String!!.indexOf(",")  + 1)
-            Log.v(TAG, "before decode")
             val imageBytes = Base64.decode(base64String, Base64.DEFAULT)
-            Log.v(TAG, "after decode")
             return imageBytes
         }
         return null

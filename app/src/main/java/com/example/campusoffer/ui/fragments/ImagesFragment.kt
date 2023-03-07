@@ -1,5 +1,6 @@
 package com.example.campusoffer.ui.fragments
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -19,8 +20,12 @@ import com.example.campusoffer.util.Constants
 import com.example.campusoffer.viewmodels.FavoriteViewModel
 import com.example.campusoffer.viewmodels.ImagesViewModel
 import com.example.campusoffer.viewmodels.ShopViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 
+@ExperimentalCoroutinesApi
+@AndroidEntryPoint
 class ImagesFragment : Fragment() {
 
 
@@ -30,29 +35,40 @@ class ImagesFragment : Fragment() {
     private lateinit var imagesViewModel: ImagesViewModel
     private val mAdapter by lazy { ImagesAdapter() }
     private lateinit var mView: View
+    private lateinit var myBundle: Product
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        imagesViewModel = ViewModelProvider(requireActivity()).get(ImagesViewModel::class.java)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        imagesViewModel = ImagesViewModel();
-        inflater.inflate(R.layout.fragment_images, container, false)
+        val args = arguments
+        myBundle = args?.getParcelable("productBundle")!!
+
         _binding = FragmentImagesBinding.inflate(inflater, container, false)
         mView = binding.root
         setupRecyclerView()
         requestData()
 
+
         return mView
     }
 
     private fun requestData() {
-        val imageSrcList = imagesViewModel.applyHardCodeData()
-        if( imageSrcList != null) {
-            hideShimmerEffect()
-            mAdapter.setData(imageSrcList)
-        } else {
-            showShimmerEffect()
+        imagesViewModel.requestImage(myBundle!!)
+        imagesViewModel.imageBitmapList.observe(viewLifecycleOwner) {response ->
+            when(response){
+                emptyList<Bitmap>() -> {
+                    showShimmerEffect()
+                }
+                else -> {
+                    mAdapter.setData(response as List<Bitmap>)
+                    hideShimmerEffect()
+                }
+            }
         }
     }
 
