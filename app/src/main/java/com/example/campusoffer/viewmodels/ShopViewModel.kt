@@ -12,15 +12,6 @@ import com.example.campusoffer.util.NetworkResult
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-//val categoryId: String,
-//val createDate: String,
-//val description: String,
-//val id: String,
-//val _images: List<String>,
-//val isSold: Int,
-//val price: Double,
-//val sellerId: String,
-//val title: String
 
 class ShopViewModel @ViewModelInject constructor(
     private val productRepository: ProductRepository,

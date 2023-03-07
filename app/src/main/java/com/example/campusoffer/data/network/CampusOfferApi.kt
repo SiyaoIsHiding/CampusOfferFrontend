@@ -3,10 +3,12 @@ package com.example.campusoffer.data.network
 import com.example.campusoffer.models.Category
 import com.example.campusoffer.models.Product
 import com.example.campusoffer.models.User
+import com.example.campusoffer.models.responses.ProductImage
 import com.example.campusoffer.models.responses.ProductsIdList
 import com.example.campusoffer.models.responses.SubCategory
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.QueryMap
 
 interface CampusOfferApi {
@@ -51,4 +53,8 @@ interface CampusOfferApi {
         @QueryMap queries: Map<String, String>
     ): Response<Category>
 
+    @GET("/image/{imageId}")
+    suspend fun getImageByID(
+        @Path("imageId") id: String
+    ): Response<ProductImage>
 }

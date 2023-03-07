@@ -5,6 +5,7 @@ import com.example.campusoffer.data.network.CampusOfferApi
 import com.example.campusoffer.models.Category
 import com.example.campusoffer.models.Product
 import com.example.campusoffer.models.User
+import com.example.campusoffer.models.responses.ProductImage
 import com.example.campusoffer.models.responses.ProductsIdList
 import com.example.campusoffer.models.responses.SubCategory
 import com.example.campusoffer.util.Constants.Companion.QUERY_CATEGORY_ID
@@ -49,5 +50,9 @@ class RemoteDataSource @Inject constructor(
             Log.e(DEBUG_TAG, "Mandatory queries parameter not found")
         }
         return campusOfferApi.getUserByID(queries)
+    }
+
+    suspend fun getImageByID(id: String): Response<ProductImage> {
+        return campusOfferApi.getImageByID(id)
     }
 }

@@ -15,14 +15,16 @@ import com.example.campusoffer.ui.fragments.ImagesFragment
 import com.example.campusoffer.ui.fragments.OverviewFragment
 import com.example.campusoffer.viewmodels.FavoriteViewModel
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_details.*
 import kotlinx.android.synthetic.main.placeholder_row.*
 
+@AndroidEntryPoint
 class DetailsActivity : AppCompatActivity() {
 
     private val args by navArgs<DetailsActivityArgs>()
     // Share Data in MainModel (from local database or API)
-    private var favoriteViewModel = FavoriteViewModel()
+
     private var productSaved = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,14 +64,14 @@ class DetailsActivity : AppCompatActivity() {
     }
 
     private fun checkSavedProducts( item: MenuItem) {
-        for ( currFavorite in favoriteViewModel.getCurrentFavoritesList()) {
-            if (currFavorite.id == args.product.id) {
-                changeMenuItemColor( item, R.color.yellow)
-                productSaved = true
-            } else {
-                changeMenuItemColor( item, R.color.white)
-            }
-        }
+//        for ( currFavorite in favoriteViewModel.getCurrentFavoritesList()!!) {
+//            if (currFavorite?.id == args.product.id) {
+//                changeMenuItemColor( item, R.color.yellow)
+//                productSaved = true
+//            } else {
+//                changeMenuItemColor( item, R.color.white)
+//            }
+//        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -85,12 +87,12 @@ class DetailsActivity : AppCompatActivity() {
     }
 
     private fun saveToFavorites(item: MenuItem) {
-        val selectProduct = args.product
-        favoriteViewModel.insertFavoriteProduct(selectProduct)
-        changeMenuItemColor(item, R.color.yellow)
-        showSnackBar("Favorite Product Saved")
-        Log.d("currList", favoriteViewModel.getCurrentFavoritesList().toString())
-        Log.d("currListLength", favoriteViewModel.getCurrentFavoritesList().size.toString())
+//        val selectProduct = args.product
+//        favoriteViewModel.insertFavoriteProduct(selectProduct)
+//        changeMenuItemColor(item, R.color.yellow)
+//        showSnackBar("Favorite Product Saved")
+//        Log.d("currList", favoriteViewModel.getCurrentFavoritesList().toString())
+//        Log.d("currListLength", favoriteViewModel.getCurrentFavoritesList()?.size.toString())
     }
 
     private fun showSnackBar(message: String) {

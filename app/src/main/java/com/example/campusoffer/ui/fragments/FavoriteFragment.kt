@@ -7,15 +7,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.campusoffer.R
 import com.example.campusoffer.adapters.FavoritesAdapter
 import com.example.campusoffer.databinding.FragmentFavoriteBinding
+import com.example.campusoffer.models.Product
+import com.example.campusoffer.util.Constants
 import com.example.campusoffer.viewmodels.FavoriteViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 
-
+@ExperimentalCoroutinesApi
+@AndroidEntryPoint
 class FavoriteFragment : Fragment() {
 
     // This property is only valid between onCreateView and onDestroyView.
@@ -27,7 +34,7 @@ class FavoriteFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        favoriteViewModel = FavoriteViewModel();
+        favoriteViewModel = ViewModelProvider(requireActivity()).get(FavoriteViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -44,13 +51,22 @@ class FavoriteFragment : Fragment() {
     }
 
     private fun requestData() {
-        val productListData = favoriteViewModel.applyHardCodeData()
-        if( productListData != null) {
-            hideShimmerEffect()
-            mAdapter.setData(productListData)
-            Log.d("productList", productListData.toString())
-        } else {
-            showShimmerEffect()
+        val queryMap = HashMap<String, String>()
+        queryMap.put(
+            Constants.QUERY_CATEGORY_ID,
+            Constants.CATEGORY_ROOT_ID
+        ) //TODO: hard coded category id and using getProductsList
+        favoriteViewModel.getProductsList(queryMap)
+        favoriteViewModel.favoritesList.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                emptyList<Product>() -> {
+                    showShimmerEffect()
+                }
+                else -> {
+                    mAdapter.setData(response as List<Product>)
+                    hideShimmerEffect()
+                }
+            }
         }
     }
 
