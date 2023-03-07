@@ -1,5 +1,6 @@
 package com.example.campusoffer.ui.fragments
 
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -27,8 +28,11 @@ class OverviewFragment : Fragment() {
         view.detail_title.text = myBundle?.title
         view.detail_price.text = myBundle?.price.toString()
         view.detail_description.text = myBundle?.description
-        view.detail_image.setImageResource(R.drawable.ic_landscape)
-
+        val imageBytes = myBundle?.coverImage
+        if (imageBytes != null){
+            val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+            view.detail_image.setImageBitmap(decodedImage)
+        }
 
         return view
     }

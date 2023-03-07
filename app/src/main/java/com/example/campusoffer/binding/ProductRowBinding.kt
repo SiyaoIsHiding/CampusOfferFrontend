@@ -61,11 +61,8 @@ class ProductRowBinding{
         fun loadImageFromUrl(imageView: ImageView, product: Product) {
             val imageBytes = product.coverImage
             if (imageBytes != null){
-                Log.v(TAG, "before decode")
                 val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
-                Log.v(TAG, "after decode")
                 imageView.setImageBitmap(decodedImage)
-                Log.v(TAG, "after set image")
             }
         }
 

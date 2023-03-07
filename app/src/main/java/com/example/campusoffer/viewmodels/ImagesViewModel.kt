@@ -1,20 +1,37 @@
 package com.example.campusoffer.viewmodels
 
+import android.app.Application
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.AndroidViewModel
-import com.example.campusoffer.R
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.example.campusoffer.data.ProductRepository
 import com.example.campusoffer.models.Product
+import kotlinx.coroutines.launch
 
-class ImagesViewModel {
+class ImagesViewModel @ViewModelInject constructor(
+    private val productRepository: ProductRepository,
+    application: Application
+): AndroidViewModel(application){
 
-    private var imageRrcList : MutableList<Int> = mutableListOf()
+    var imageBitmapList : MutableLiveData<MutableList<Bitmap>> = MutableLiveData(mutableListOf())
 
-    fun applyHardCodeData() : List<Int> {
-
-        var image1 = R.drawable.ic_landscape
-        var image2 = R.drawable.ic_landscape2
-        imageRrcList.add(image1)
-        imageRrcList.add(image2)
-        return imageRrcList
+    fun requestImage(product: Product) {
+        if (!product._images.isNullOrEmpty()){
+            for (i in product._images?.indices){
+                viewModelScope.launch {
+                    val byteArray = productRepository.getImageBytesById(product._images?.get(i))
+                    if (byteArray != null){
+                        val decodedImage = BitmapFactory.decodeByteArray(byteArray, 0 , byteArray.size)
+                        imageBitmapList.value?.add(i, decodedImage)
+                        imageBitmapList.value = imageBitmapList.value
+                    }
+                }
+            }
         }
+
+    }
 
 }
