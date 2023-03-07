@@ -53,7 +53,7 @@ interface CampusOfferApi {
         @QueryMap queries: Map<String, String>
     ): Response<Category>
 
-    @GET("/image/{imageId}")
+    @GET("/images/{imageId}")
     suspend fun getImageByID(
         @Path("imageId") id: String
     ): Response<ProductImage>
