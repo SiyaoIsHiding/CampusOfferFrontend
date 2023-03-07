@@ -1,6 +1,7 @@
 package com.example.campusoffer.data
 
 import android.util.Base64
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.campusoffer.models.Product
 import com.example.campusoffer.util.Constants.Companion.QUERY_ID
@@ -14,6 +15,7 @@ class ProductRepository @Inject constructor(
 ) {
 
     val remote = remoteDataSource
+    val TAG = "ProductRepository"
     suspend fun getListProducts(queries : Map<String, String>, liveData: MutableLiveData<List<Product?>>){
         MainScope().launch {
             val res1 = remote.getProductsUnderCategory(queries)
@@ -44,8 +46,11 @@ class ProductRepository @Inject constructor(
     suspend fun getImageBytesById(imageId: String): ByteArray? {
         val res = remote.getImageByID(imageId)
         if (res.body() != null && !res.body()!!.image.isNullOrEmpty()) {
-            val base64String = res.body()!!.image
+            var base64String = res.body()!!.image
+            base64String = base64String!!.substring(base64String!!.indexOf(",")  + 1)
+            Log.v(TAG, "before decode")
             val imageBytes = Base64.decode(base64String, Base64.DEFAULT)
+            Log.v(TAG, "after decode")
             return imageBytes
         }
         return null
