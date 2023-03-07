@@ -1,6 +1,7 @@
 package com.example.campusoffer.binding
 
 import android.app.Notification.Action
+import android.graphics.BitmapFactory
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
@@ -10,14 +11,16 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
+import coil.load
 import com.example.campusoffer.R
+import com.example.campusoffer.data.ProductRepository
 import com.example.campusoffer.models.Product
 import com.example.campusoffer.ui.fragments.FavoriteFragmentDirections
 import com.example.campusoffer.ui.fragments.ShopFragmentDirections
+import javax.inject.Inject
 
-class ProductRowBinding {
-
-    companion object {
+class ProductRowBinding{
+    companion object{
 
         @BindingAdapter("onProductClickListener")
         @JvmStatic
@@ -52,13 +55,15 @@ class ProductRowBinding {
 
 
 
-//        @BindingAdapter("loadImageFromUrl")
-//        @JvmStatic
-//        fun loadImageFromUrl(imageView: ImageView, imageUrl: String) {
-//            imageView.load(imageUrl) {
-//                crossfade(600)
-//            }
-//        }
+        @BindingAdapter("loadImageFromUrl")
+        @JvmStatic
+        fun loadImageFromUrl(imageView: ImageView, product: Product) {
+            val imageBytes = product.coverImage
+            if (imageBytes != null){
+                val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+                imageView.setImageBitmap(decodedImage)
+            }
+        }
 
 
 

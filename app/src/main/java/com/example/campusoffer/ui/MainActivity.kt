@@ -104,6 +104,7 @@ class MainActivity : AppCompatActivity() {
                     val idToken = credential.googleIdToken
                     val username = credential.id
                     val password = credential.password
+                    credential.publicKeyCredential
                     when {
                         idToken != null -> {
                             // Got an ID token from Google. Use it to authenticate
