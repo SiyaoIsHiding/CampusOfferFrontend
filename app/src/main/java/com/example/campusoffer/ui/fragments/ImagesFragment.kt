@@ -75,7 +75,7 @@ class ImagesFragment : Fragment() {
                     showShimmerEffect()
                 }
                 else -> {
-                    mAdapter.setData(response as List<Bitmap>)
+                    mAdapter.setData(response.filterNotNull())
                     hideShimmerEffect()
                 }
             }

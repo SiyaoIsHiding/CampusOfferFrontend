@@ -18,7 +18,7 @@ class ShopViewModel @ViewModelInject constructor(
     application: Application
 ): AndroidViewModel(application){
 
-    var productsList : MutableLiveData<List<Product?>> = MutableLiveData()
+    var productsList : MutableLiveData<MutableList<Product?>> = MutableLiveData(mutableListOf())
 
     fun getProductsList(queries: Map<String, String>) = viewModelScope.launch{
         productRepository.getListProducts(queries, productsList)

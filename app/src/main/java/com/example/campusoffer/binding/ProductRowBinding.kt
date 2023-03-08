@@ -57,13 +57,13 @@ class ProductRowBinding{
         @BindingAdapter("loadImageFromUrl")
         @JvmStatic
         fun loadImageFromUrl(imageView: ImageView, product: Product?) {
-            if(product == null) return
-            val imageBytes = product.coverImage
-            if (imageBytes != null){
-                val decodedImage =
-                    BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size) ?: return
-                imageView.setImageBitmap(decodedImage)
-            }
+//            if(product == null) return
+//            val imageBytes = product.coverImage
+//            if (imageBytes != null){
+//                val decodedImage =
+//                    BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size) ?: return
+//                imageView.setImageBitmap(decodedImage)
+//            }
         }
 
 

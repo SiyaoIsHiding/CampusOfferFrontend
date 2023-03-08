@@ -16,30 +16,23 @@ class ProductRepository @Inject constructor(
 
     val remote = remoteDataSource
     val TAG = "ProductRepository"
-    suspend fun getListProducts(queries : Map<String, String>, liveData: MutableLiveData<List<Product?>>){
+    suspend fun getListProducts(queries : Map<String, String>, liveData: MutableLiveData<MutableList<Product?>>){
         MainScope().launch {
             val res1 = remote.getProductsUnderCategory(queries)
             var idList = listOf<String>()
             if (!res1.body()?.productId.isNullOrEmpty()) {
                 idList = res1.body()!!.productId
             }
-            val runningTasks = idList.map { id ->
+            liveData.value = MutableList(idList.size) {index -> null}
+            for( i in idList.indices){
                 async {
                     val queries = HashMap<String, String>()
-                    queries.put(QUERY_ID, id)
+                    queries.put(QUERY_ID, idList.get(i))
                     val res2 = remote.getProductByID(queries)
-                    if(res2?.body()?._images?.isNullOrEmpty() == false){
-                        val resImage = getImageBytesById(res2!!.body()!!._images!![0])
-                        res2!!.body()!!.coverImage = resImage
-                    }
-                    id to res2
+                    liveData.value?.set(i, res2.body()!!)
+                    liveData.value = liveData.value
                 }
             }
-            runningTasks.awaitAll()
-            val products : List<Product?> = runningTasks.map {
-                res -> res.getCompleted().second.body()
-            }
-            liveData.postValue(products)
         }
     }
 
