@@ -30,7 +30,6 @@ class ProductRowBinding{
                 try {
                     val action =
                         ShopFragmentDirections.actionShopFragmentToDetailsActivity(product)
-                    Log.d("onProductClickListener", "CALLED")
                     productRowLayout.findNavController().navigate(action)
                 } catch (e: Exception) {
                     Log.d("onProductClickListener", e.toString())
@@ -41,7 +40,6 @@ class ProductRowBinding{
         @BindingAdapter("onProductClickListenerFavorite")
         @JvmStatic
         fun onProductClickListenerFavorite(favoriteRowLayout: ConstraintLayout, product: Product) {
-            Log.d("onProductClickListener", "CALLED")
             favoriteRowLayout.setOnClickListener {
                 try {
                     val action =
@@ -58,7 +56,7 @@ class ProductRowBinding{
 
         @BindingAdapter("loadImageFromUrl")
         @JvmStatic
-        fun loadImageFromUrl(imageView: ImageView, product: Product) {
+        fun loadImageFromUrl(imageView: ImageView, product: Product?) {
             if(product == null) return
             val imageBytes = product.coverImage
             if (imageBytes != null){

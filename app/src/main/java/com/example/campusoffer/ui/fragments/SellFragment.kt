@@ -8,9 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.campusoffer.adapters.SellsAdapter
 import com.example.campusoffer.databinding.FragmentSellBinding
+import com.example.campusoffer.util.NetworkResult
 import com.example.campusoffer.viewmodels.SellViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_sell.view.*
@@ -58,6 +60,29 @@ class SellFragment : Fragment() {
                 sellViewModel.postNewProduct(titleField.text.toString(), descriptionField.text.toString(), priceField.text.toString().toDouble())
             }
         })
+
+        sellViewModel.postProductRes.observe(viewLifecycleOwner) {response ->
+            when(response){
+                is NetworkResult.Success -> {
+                    Toast.makeText(
+                        requireContext(),
+                        "Post product successfully",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    titleField.text.clear()
+                    descriptionField.text.clear()
+                    priceField.text.clear()
+                }
+
+                is NetworkResult.Error -> {
+                    Toast.makeText(
+                        requireContext(),
+                        "Error: " +response.message.toString(),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
 
         return mView
     }
