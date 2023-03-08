@@ -1,6 +1,10 @@
 package com.example.campusoffer.ui.fragments
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -32,11 +37,10 @@ class SellFragment : Fragment() {
     private lateinit var mView: View
 
     private val TAG = "SellFragment"
+    private val SELECT_PICTURE = 200
 
-    private lateinit var submitButton : Button
-    private lateinit var titleField : EditText
-    private lateinit var descriptionField : EditText
-    private lateinit var priceField : EditText
+    private val imageUriList: MutableList<Uri> = mutableListOf()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sellViewModel = ViewModelProvider(requireActivity()).get(SellViewModel::class.java)
@@ -50,16 +54,17 @@ class SellFragment : Fragment() {
         _binding = FragmentSellBinding.inflate(inflater, container, false)
         mView = binding.root
 
-        // init
-        submitButton = mView.submitButton
-        titleField = mView.editTitle
-        descriptionField = mView.editDescription
-        priceField = mView.editPrice
-
-        submitButton.setOnClickListener(object : View.OnClickListener {
+        // button listeners
+        binding.submitButton.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 Log.v(TAG, mView.editTitle.text.toString())
-                sellViewModel.postNewProduct(titleField.text.toString(), descriptionField.text.toString(), priceField.text.toString().toDouble())
+                sellViewModel.postNewProduct(binding.editTitle.text.toString(), binding.editDescription.text.toString(), binding.editPrice.text.toString().toDouble())
+            }
+        })
+
+        binding.addImageButton.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View?) {
+                imageChooser()
             }
         })
 
@@ -75,9 +80,9 @@ class SellFragment : Fragment() {
                         "Post product successfully",
                         Toast.LENGTH_SHORT
                     ).show()
-                    titleField.text.clear()
-                    descriptionField.text.clear()
-                    priceField.text.clear()
+                    binding.editTitle.text.clear()
+                    binding.editDescription.text.clear()
+                    binding.editPrice.text.clear()
                 }
 
                 is NetworkResult.Error -> {
@@ -98,4 +103,40 @@ class SellFragment : Fragment() {
         _binding = null
     }
 
+    private fun imageChooser(){
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT,MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+        intent.addCategory(Intent.CATEGORY_OPENABLE)
+        intent.type = "image/*"
+        startActivityForResult(intent, SELECT_PICTURE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(resultCode == Activity.RESULT_OK && requestCode == SELECT_PICTURE){
+            imageUriList.clear()
+            if(data?.clipData == null){
+                // Single image
+                val imageUri = data!!.data!!
+                imageUriList.add(imageUri)
+            }else{
+                val count = data.clipData!!.itemCount
+                for(i in 0 until count){
+                    imageUriList.add(data.clipData?.getItemAt(i)!!.uri)
+                }
+            }
+            inflateImages()
+        }
+    }
+
+    private fun inflateImages(){
+        binding.imagesLinearLayout.removeAllViews()
+
+        for(i in imageUriList.indices){
+            val imageView = ImageView(requireContext())
+            imageView.setImageURI(imageUriList.get(i))
+            binding.imagesLinearLayout.addView(imageView)
+        }
+    }
 }
