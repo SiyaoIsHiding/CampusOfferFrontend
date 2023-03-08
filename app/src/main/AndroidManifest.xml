@@ -16,10 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CampusOffer">
         <activity
-            android:name=".AddNewProductActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AddNewProduct"
+            android:name=".ui.SaleListActivity"
             android:exported="false" />
         <activity
             android:name=".ui.DetailsActivity"
