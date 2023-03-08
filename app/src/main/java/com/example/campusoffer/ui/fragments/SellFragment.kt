@@ -10,6 +10,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.example.campusoffer.R
 import com.example.campusoffer.adapters.SellsAdapter
 import com.example.campusoffer.databinding.FragmentSellBinding
 import com.example.campusoffer.util.NetworkResult
@@ -60,6 +62,10 @@ class SellFragment : Fragment() {
                 sellViewModel.postNewProduct(titleField.text.toString(), descriptionField.text.toString(), priceField.text.toString().toDouble())
             }
         })
+
+        binding.listSaleButton.setOnClickListener {
+            findNavController().navigate(R.id.action_sellFragment_to_saleListActivity)
+        }
 
         sellViewModel.postProductRes.observe(viewLifecycleOwner) {response ->
             when(response){
