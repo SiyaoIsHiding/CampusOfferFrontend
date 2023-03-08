@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -58,6 +59,15 @@ class ImagesFragment : Fragment() {
     }
 
     private fun requestData() {
+        if (myBundle._images.isNullOrEmpty()){
+            Toast.makeText(
+                requireContext(),
+                "No Images Available",
+                Toast.LENGTH_SHORT
+            ).show()
+            hideShimmerEffect()
+            return
+        }
         imagesViewModel.requestImage(myBundle!!)
         imagesViewModel.imageBitmapList.observe(viewLifecycleOwner) {response ->
             when(response){
@@ -65,7 +75,7 @@ class ImagesFragment : Fragment() {
                     showShimmerEffect()
                 }
                 else -> {
-                    mAdapter.setData(response as List<Bitmap>)
+                    mAdapter.setData(response.filterNotNull())
                     hideShimmerEffect()
                 }
             }

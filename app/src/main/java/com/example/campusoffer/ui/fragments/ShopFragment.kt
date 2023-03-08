@@ -1,5 +1,7 @@
 package com.example.campusoffer.ui.fragments
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.campusoffer.R
 import com.example.campusoffer.adapters.ProductsAdapter
 import com.example.campusoffer.databinding.FragmentShopBinding
-import com.example.campusoffer.models.Product
 import com.example.campusoffer.util.Constants
 import com.example.campusoffer.viewmodels.ShopViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -62,16 +63,18 @@ class ShopFragment : Fragment() {
         shopViewModel.getProductsList(queryMap)
         shopViewModel.productsList.observe(viewLifecycleOwner ){response ->
             when(response){
-                emptyList<Product>() -> {
+                null -> {
                     showShimmerEffect()
                 }
                 else -> {
-                    mAdapter.setData(response as List<Product>)
+                    mAdapter.setProductsData(response.filterNotNull())
                     hideShimmerEffect()
                 }
             }
-
-
+        }
+        shopViewModel.coverImageList.observe(viewLifecycleOwner) {imagesList ->
+            Log.v(TAG, "CoverImageList updated")
+            mAdapter.setCoverImagesData(imagesList)
         }
 //        shopViewModel.getProductsUnderCategory(queryMap);
 //        shopViewModel.productsUnderCategoryRes.observe(viewLifecycleOwner) { response ->

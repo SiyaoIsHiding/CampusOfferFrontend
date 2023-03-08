@@ -24,7 +24,5 @@ data class Product(
     @SerializedName("seller_id")
     val sellerId: String?="",
     @SerializedName("title")
-    val title: String?="place holder title",
-    @SerializedName("cover_image")
-    var coverImage: ByteArray? = byteArrayOf()
+    val title: String?="place holder title"
 ) : Parcelable

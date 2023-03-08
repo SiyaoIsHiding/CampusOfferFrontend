@@ -6,47 +6,73 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.campusoffer.R
-import com.example.campusoffer.adapters.ProductsAdapter
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import com.example.campusoffer.databinding.FragmentOverviewBinding
 import com.example.campusoffer.models.Product
-import com.example.campusoffer.viewmodels.UserViewModel
+import com.example.campusoffer.models.User
+import com.example.campusoffer.viewmodels.OverviewViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_overview.view.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-
+@ExperimentalCoroutinesApi
+@AndroidEntryPoint
 class OverviewFragment : Fragment() {
 
-    lateinit var userViewModel: UserViewModel
 
+    private var _binding: FragmentOverviewBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var overviewViewModel: OverviewViewModel
+    private lateinit var mView: View
+    private lateinit var myBundle: Product
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        overviewViewModel = ViewModelProvider(requireActivity()).get(OverviewViewModel::class.java)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_overview, container, false)
-
         val args = arguments
-        val myBundle: Product? = args?.getParcelable("productBundle")
+        myBundle = args?.getParcelable("productBundle")!!
 
+        _binding = FragmentOverviewBinding.inflate(inflater, container, false)
+        mView = binding.root
 
+        mView.detail_title.text = myBundle?.title
+        mView.detail_price.text = myBundle?.price.toString()
+        mView.detail_description.text = myBundle?.description
+        val user = User("Living in verano", "Jane", "kda98erf", "He", "siyaoh4")
+        mView.detail_seller_first_name.text = user.firstName
+        mView.detail_seller_last_name.text = user.lastName
+        mView.detail_seller_bio.text = user.bio
 
-        view.detail_title.text = myBundle?.title
-        view.detail_price.text = myBundle?.price.toString()
-        view.detail_description.text = myBundle?.description
-        val imageBytes = myBundle?.coverImage
-        if (imageBytes != null){
-            val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
-            view.detail_image.setImageBitmap(decodedImage)
+        requestCoverImage()
+
+        return mView
+    }
+
+    private fun requestCoverImage(){
+        if(myBundle._images.isNullOrEmpty()) {
+            Toast.makeText(
+                requireContext(),
+                "No Images Available",
+                Toast.LENGTH_SHORT
+            ).show()
+            return
         }
 
-        // TODO query user information via product id maybe?
-        userViewModel = UserViewModel()
-        val user = userViewModel.applyHardCodeData()
-        view.detail_seller_first_name.text = user.firstName
-        view.detail_seller_last_name.text = user.lastName
-        view.detail_seller_bio.text = user.bio
-
-        return view
+        overviewViewModel.requestCoverImage(myBundle!!)
+        overviewViewModel.imageBitmap.observe(viewLifecycleOwner) {bitmap ->
+            when(bitmap){
+                null -> {}
+                else -> {
+                    mView.detail_image.setImageBitmap(bitmap)
+                }
+            }
+        }
     }
 
 }

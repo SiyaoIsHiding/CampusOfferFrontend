@@ -15,10 +15,10 @@ class FavoriteViewModel @ViewModelInject constructor(
     application: Application
 ): AndroidViewModel(application){
 
-    var favoritesList : MutableLiveData<List<Product?>> = MutableLiveData()
+    var favoritesList : MutableLiveData<MutableList<Product?>> = MutableLiveData()
 
     fun getProductsList(queries: Map<String, String>) = viewModelScope.launch{
-        productRepository.getListProducts(queries, favoritesList)
+//        productRepository.getListProducts(queries, favoritesList) //FIXME
     }
 
     fun insertFavoriteProduct( product: Product) {

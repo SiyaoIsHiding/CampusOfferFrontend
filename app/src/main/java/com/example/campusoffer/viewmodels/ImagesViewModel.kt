@@ -16,16 +16,17 @@ class ImagesViewModel @ViewModelInject constructor(
     application: Application
 ): AndroidViewModel(application){
 
-    var imageBitmapList : MutableLiveData<MutableList<Bitmap>> = MutableLiveData(mutableListOf())
+    var imageBitmapList : MutableLiveData<MutableList<Bitmap?>> = MutableLiveData(mutableListOf())
 
     fun requestImage(product: Product) {
         if (!product._images.isNullOrEmpty()){
+            imageBitmapList.value = MutableList(product._images.size) { index ->  null}
             for (i in product._images?.indices){
                 viewModelScope.launch {
                     val byteArray = productRepository.getImageBytesById(product._images?.get(i))
                     if (byteArray != null){
                         val decodedImage = BitmapFactory.decodeByteArray(byteArray, 0 , byteArray.size)
-                        imageBitmapList.value?.add(i, decodedImage)
+                        imageBitmapList.value?.set(i, decodedImage)
                         imageBitmapList.value = imageBitmapList.value
                     }
                 }

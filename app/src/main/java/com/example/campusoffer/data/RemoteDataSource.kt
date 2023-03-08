@@ -27,28 +27,28 @@ class RemoteDataSource @Inject constructor(
     }
 
     suspend fun getProductByID(queries: Map<String, String> ): Response<Product>{
-        if (queries.containsKey(QUERY_ID)){
+        if (!queries.containsKey(QUERY_ID)){
             Log.e(DEBUG_TAG, "Mandatory queries parameter not found in getProductByID")
         }
         return campusOfferApi.getProductByID(queries)
     }
 
     suspend fun getSubCategory(queries: Map<String, String> ): Response<SubCategory>{
-        if (queries.containsKey(QUERY_ID)){
+        if (!queries.containsKey(QUERY_ID)){
             Log.e(DEBUG_TAG, "Mandatory queries parameter not found")
         }
         return campusOfferApi.getSubCategory(queries)
     }
 
     suspend fun getCategoryByID(queries: Map<String, String>): Response<Category>{
-        if (queries.containsKey(QUERY_ID)){
+        if (!queries.containsKey(QUERY_ID)){
             Log.e(DEBUG_TAG, "Mandatory queries parameter not found")
         }
         return campusOfferApi.getCategoryByID(queries)
     }
 
     suspend fun getUserByID(queries: Map<String, String>) : Response<User>{
-        if (queries.containsKey(QUERY_ID)){
+        if (!queries.containsKey(QUERY_ID)){
             Log.e(DEBUG_TAG, "Mandatory queries parameter not found")
         }
         return campusOfferApi.getUserByID(queries)

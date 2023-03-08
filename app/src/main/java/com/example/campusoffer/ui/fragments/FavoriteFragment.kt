@@ -63,7 +63,7 @@ class FavoriteFragment : Fragment() {
                     showShimmerEffect()
                 }
                 else -> {
-                    mAdapter.setData(response as List<Product>)
+                    mAdapter.setData(response.filterNotNull())
                     hideShimmerEffect()
                 }
             }
