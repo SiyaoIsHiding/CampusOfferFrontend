@@ -5,7 +5,9 @@ import com.example.campusoffer.data.network.CampusOfferApi
 import com.example.campusoffer.models.Category
 import com.example.campusoffer.models.Product
 import com.example.campusoffer.models.User
-import com.example.campusoffer.models.responses.ProductImage
+import com.example.campusoffer.models.requests.NewProduct
+import com.example.campusoffer.models.responses.ImageIdList
+import com.example.campusoffer.models.responses.SingleImage
 import com.example.campusoffer.models.responses.ProductsIdList
 import com.example.campusoffer.models.responses.SubCategory
 import com.example.campusoffer.util.Constants.Companion.QUERY_CATEGORY_ID
@@ -26,7 +28,7 @@ class RemoteDataSource @Inject constructor(
 
     suspend fun getProductByID(queries: Map<String, String> ): Response<Product>{
         if (queries.containsKey(QUERY_ID)){
-            Log.e(DEBUG_TAG, "Mandatory queries parameter not found")
+            Log.e(DEBUG_TAG, "Mandatory queries parameter not found in getProductByID")
         }
         return campusOfferApi.getProductByID(queries)
     }
@@ -52,7 +54,11 @@ class RemoteDataSource @Inject constructor(
         return campusOfferApi.getUserByID(queries)
     }
 
-    suspend fun getImageByID(id: String): Response<ProductImage> {
+    suspend fun getImageByID(id: String): Response<SingleImage> {
         return campusOfferApi.getImageByID(id)
+    }
+
+    suspend fun postNewProduct(product: NewProduct) : Response<ImageIdList>{
+        return campusOfferApi.postProduct(product)
     }
 }

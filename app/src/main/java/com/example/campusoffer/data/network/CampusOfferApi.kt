@@ -3,13 +3,13 @@ package com.example.campusoffer.data.network
 import com.example.campusoffer.models.Category
 import com.example.campusoffer.models.Product
 import com.example.campusoffer.models.User
-import com.example.campusoffer.models.responses.ProductImage
+import com.example.campusoffer.models.requests.NewProduct
+import com.example.campusoffer.models.responses.ImageIdList
+import com.example.campusoffer.models.responses.SingleImage
 import com.example.campusoffer.models.responses.ProductsIdList
 import com.example.campusoffer.models.responses.SubCategory
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.QueryMap
+import retrofit2.http.*
 
 interface CampusOfferApi {
 
@@ -56,5 +56,10 @@ interface CampusOfferApi {
     @GET("/images/{imageId}")
     suspend fun getImageByID(
         @Path("imageId") id: String
-    ): Response<ProductImage>
+    ): Response<SingleImage>
+
+    @POST("/products")
+    suspend fun postProduct(
+        @Body product: NewProduct
+    ): Response<ImageIdList>
 }

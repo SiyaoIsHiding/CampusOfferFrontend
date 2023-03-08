@@ -53,7 +53,7 @@ class ShopFragment : Fragment() {
         binding.productsFilter.setOnClickListener {
             findNavController().navigate(R.id.action_shopFragment_to_filterBottomSheet)
         }
-            return mView
+        return mView
     }
 
     private fun requestData() {
