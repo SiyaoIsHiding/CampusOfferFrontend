@@ -6,17 +6,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.campusoffer.R
-import com.example.campusoffer.adapters.FavoritesAdapter
+import android.widget.Button
+import android.widget.EditText
+import androidx.lifecycle.ViewModelProvider
 import com.example.campusoffer.adapters.SellsAdapter
-import com.example.campusoffer.databinding.FragmentFavoriteBinding
 import com.example.campusoffer.databinding.FragmentSellBinding
-import com.example.campusoffer.viewmodels.FavoriteViewModel
 import com.example.campusoffer.viewmodels.SellViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_sell.view.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-
+@ExperimentalCoroutinesApi
+@AndroidEntryPoint
 class SellFragment : Fragment() {
 
     // This property is only valid between onCreateView and onDestroyView.
@@ -26,9 +27,15 @@ class SellFragment : Fragment() {
     private val mAdapter by lazy { SellsAdapter() }
     private lateinit var mView: View
 
+    private val TAG = "SellFragment"
+
+    private lateinit var submitButton : Button
+    private lateinit var titleField : EditText
+    private lateinit var descriptionField : EditText
+    private lateinit var priceField : EditText
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sellViewModel = SellViewModel();
+        sellViewModel = ViewModelProvider(requireActivity()).get(SellViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -38,40 +45,21 @@ class SellFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentSellBinding.inflate(inflater, container, false)
         mView = binding.root
-        setupRecyclerView()
-        requestData()
 
-        binding.addNewProduct.setOnClickListener {
-            findNavController().navigate(R.id.action_sellFragment_to_addNewProduct)
-        }
+        // init
+        submitButton = mView.submitButton
+        titleField = mView.editTitle
+        descriptionField = mView.editDescription
+        priceField = mView.editPrice
+
+        submitButton.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                Log.v(TAG, mView.editTitle.text.toString())
+                sellViewModel.postNewProduct(titleField.text.toString(), descriptionField.text.toString(), priceField.text.toString().toDouble())
+            }
+        })
 
         return mView
-    }
-
-    private fun requestData() {
-        val productListData = sellViewModel.applyHardCodeData()
-        if( productListData != null) {
-            hideShimmerEffect()
-            mAdapter.setData(productListData)
-            Log.d("productList", productListData.toString())
-        } else {
-            showShimmerEffect()
-        }
-    }
-
-    private fun setupRecyclerView() {
-        binding!!.shimmerRecyclerView.adapter = mAdapter
-        binding!!.shimmerRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        showShimmerEffect()
-    }
-
-
-    private fun showShimmerEffect() {
-        binding.shimmerRecyclerView.showShimmer()
-    }
-
-    private fun hideShimmerEffect() {
-        binding.shimmerRecyclerView.hideShimmer()
     }
 
     override fun onDestroy() {

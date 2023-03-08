@@ -1,37 +1,31 @@
 package com.example.campusoffer.viewmodels
 
+import android.app.Application
+import android.util.Log
+import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.campusoffer.data.ProductRepository
 import com.example.campusoffer.models.Product
+import com.example.campusoffer.models.requests.NewProduct
+import com.example.campusoffer.util.Constants.Companion.CATEGORY_ROOT_ID
+import com.example.campusoffer.util.Constants.Companion.USER_TEST_ID
+import kotlinx.coroutines.launch
 
-class SellViewModel {
+class SellViewModel @ViewModelInject constructor(
+    private val productRepository: ProductRepository,
+    application: Application
+): AndroidViewModel(application){
 
-    fun applyHardCodeData() : List<Product> {
+    private val TAG = "SellViewModel"
+    fun postNewProduct(title: String, description: String, price: Double){
+        val body = NewProduct(CATEGORY_ROOT_ID, description, 0, price, USER_TEST_ID, title)
+        viewModelScope.launch {
+            val res = productRepository.remote.postNewProduct(body)
+            Log.v(TAG, res.body()?.idList.toString())
+        }
 
-        val image = listOf<String>(
-            "b8884ed5-b0de-11ed-a0a9-00224829ee55",
-            "c514d4b9-b0de-11ed-a0a9-00224829ee55"
-        )
-        val product1: Product = Product(
-            "41859207-5471-4223-b01c-e566d506c799",
-            "0301",
-            "A fully working chair. Bought in March last year.",
-            "92c6ebb6-b0ca-11ed-a0a9-00224829ee55",
-            image,
-            1,
-            29.9,
-            "fcda1dda-5b3b-4c6c-88a7-46521d132015",
-            "An office chair at Verano Place"
-        )
-        val product2: Product = Product(
-            "41859207-5471-4223-b01c-e566d506c799",
-            "0301",
-            "A fully working chair. Bought in March last year.",
-            "92c6ebb6-b0ca-11ed-a0a9-00224829ee55",
-            image,
-            0,
-            29.9,
-            "fcda1dda-5b3b-4c6c-88a7-46521d132015",
-            "An office chair at Verano Place"
-        )
-        return listOf(product1, product2)
     }
+
+
 }
