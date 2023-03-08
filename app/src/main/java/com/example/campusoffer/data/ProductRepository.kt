@@ -1,5 +1,6 @@
 package com.example.campusoffer.data
 
+import android.graphics.Bitmap
 import android.util.Base64
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -16,7 +17,8 @@ class ProductRepository @Inject constructor(
 
     val remote = remoteDataSource
     val TAG = "ProductRepository"
-    suspend fun getListProducts(queries : Map<String, String>, liveData: MutableLiveData<MutableList<Product?>>){
+
+    suspend fun getListProducts(queries : Map<String, String>, liveData: MutableLiveData<MutableList<Product?>>, liveImages: MutableLiveData<MutableList<Bitmap?>>? = null, callBack : (index: Int, product : Product?) -> Unit){
         MainScope().launch {
             val res1 = remote.getProductsUnderCategory(queries)
             var idList = listOf<String>()
@@ -24,13 +26,20 @@ class ProductRepository @Inject constructor(
                 idList = res1.body()!!.productId
             }
             liveData.value = MutableList(idList.size) {index -> null}
+            if(liveImages != null && liveImages.value != null){
+                while(liveImages.value!!.size < idList.size){
+                    liveImages.value!!.add(null)
+                }
+                liveImages.value = liveImages.value
+            }
             for( i in idList.indices){
                 async {
                     val queries = HashMap<String, String>()
                     queries.put(QUERY_ID, idList.get(i))
                     val res2 = remote.getProductByID(queries)
-                    liveData.value?.set(i, res2.body()!!)
+                    liveData.value?.set(i, res2.body())
                     liveData.value = liveData.value
+                    callBack.invoke(i, res2.body()) // Used for retrieve cover image
                 }
             }
         }

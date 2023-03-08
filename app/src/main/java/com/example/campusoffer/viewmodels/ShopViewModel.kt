@@ -1,6 +1,9 @@
 package com.example.campusoffer.viewmodels
 
 import android.app.Application
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
@@ -19,9 +22,24 @@ class ShopViewModel @ViewModelInject constructor(
 ): AndroidViewModel(application){
 
     var productsList : MutableLiveData<MutableList<Product?>> = MutableLiveData(mutableListOf())
+    var coverImageList: MutableLiveData<MutableList<Bitmap?>> = MutableLiveData(mutableListOf())
+
+    val TAG = "ShopViewModel"
 
     fun getProductsList(queries: Map<String, String>) = viewModelScope.launch{
-        productRepository.getListProducts(queries, productsList)
+        productRepository.getListProducts(queries, productsList, coverImageList) {ind, product ->
+            if (!product?._images.isNullOrEmpty()){
+                viewModelScope.launch {
+                    val byteArray = productRepository.getImageBytesById(product!!._images!!.get(0))
+                    if (byteArray != null){
+                        Log.v(TAG, "byteArray not null")
+                        val decodedImage = BitmapFactory.decodeByteArray(byteArray, 0 , byteArray.size)
+                        coverImageList.value!!.set(ind, decodedImage)
+                        coverImageList.value = coverImageList.value
+                    }
+                }
+            }
+        }
     }
 
     var productsUnderCategoryRes: MutableLiveData<NetworkResult<ProductsIdList>> = MutableLiveData()
@@ -67,34 +85,4 @@ class ShopViewModel @ViewModelInject constructor(
     }
 
 
-//    fun applyHardCodeData() : List<Product> {
-//
-//        val image = listOf<String>(
-//            "b8884ed5-b0de-11ed-a0a9-00224829ee55",
-//            "c514d4b9-b0de-11ed-a0a9-00224829ee55"
-//        )
-//        val product1: Product = Product(
-//            "41859207-5471-4223-b01c-e566d506c799",
-//            "0301",
-//            "A fully working chair. Bought in March last year.",
-//            "92c6ebb6-b0ca-11ed-a0a9-00224829ee55",
-//            image,
-//            0,
-//            29.9,
-//            "fcda1dda-5b3b-4c6c-88a7-46521d132015",
-//            "An office chair at Verano Place"
-//        )
-//        val product2: Product = Product(
-//            "41859207-5471-4223-b01c-e566d506c799",
-//            "0301",
-//            "A fully working chair. Bought in March last year.",
-//            "92c6ebb6-b0ca-11ed-a0a9-00224829ee55",
-//            image,
-//            1,
-//            29.9,
-//            "fcda1dda-5b3b-4c6c-88a7-46521d132015",
-//            "An office chair at Verano Place"
-//        )
-//        return listOf(product1, product2, product1, product1)
-//    }
 }

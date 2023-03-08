@@ -1,6 +1,7 @@
 package com.example.campusoffer.binding
 
 import android.app.Notification.Action
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Log
 import android.view.View
@@ -56,14 +57,12 @@ class ProductRowBinding{
 
         @BindingAdapter("loadImageFromUrl")
         @JvmStatic
-        fun loadImageFromUrl(imageView: ImageView, product: Product?) {
-//            if(product == null) return
-//            val imageBytes = product.coverImage
-//            if (imageBytes != null){
-//                val decodedImage =
-//                    BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size) ?: return
-//                imageView.setImageBitmap(decodedImage)
-//            }
+        fun loadImageFromUrl(imageView: ImageView, bitmap: Bitmap?) {
+            Log.v(TAG, "loadImageFromUrl")
+            if (bitmap != null){
+                Log.v(TAG, "loadImageFromUrl Not Null")
+                imageView.setImageBitmap(bitmap)
+            }
         }
 
 
