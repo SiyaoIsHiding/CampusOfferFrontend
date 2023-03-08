@@ -30,6 +30,8 @@ class ProfileFragment : Fragment() {
 
     }
 
+
+
 //
 //    private fun Any.addOnFailureListener(profileFragment: ProfileFragment, any: Any) {
 //        Log.v(TAG, "failure listener")
@@ -52,31 +54,31 @@ class ProfileFragment : Fragment() {
         mView = inflater.inflate(R.layout.fragment_profile, container, false)
 
 //region get products under category
-        val queryMap = HashMap<String, String>()
-        queryMap.put(QUERY_CATEGORY_ID, CATEGORY_ROOT_ID)
-        profileViewModel.getProductsUnderCategory(queryMap)
-
-        profileViewModel.productsUnderCategoryRes.observe(viewLifecycleOwner, { response ->
-            when(response){
-                is NetworkResult.Success -> {
-                    response.data?.let { mView.textView2.text = it.productId.toString() }
-                }
-                is NetworkResult.Error -> {
-                    Toast.makeText(
-                        requireContext(),
-                        response.message.toString(),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-                is NetworkResult.Loading -> {
-                    Toast.makeText(
-                        requireContext(),
-                        response.message.toString(),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        })
+//        val queryMap = HashMap<String, String>()
+//        queryMap.put(QUERY_CATEGORY_ID, CATEGORY_ROOT_ID)
+//        profileViewModel.getProductsUnderCategory(queryMap)
+//
+//        profileViewModel.productsUnderCategoryRes.observe(viewLifecycleOwner, { response ->
+//            when(response){
+//                is NetworkResult.Success -> {
+//                    response.data?.let { mView.textView2.text = it.productId.toString() }
+//                }
+//                is NetworkResult.Error -> {
+//                    Toast.makeText(
+//                        requireContext(),
+//                        response.message.toString(),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//                is NetworkResult.Loading -> {
+//                    Toast.makeText(
+//                        requireContext(),
+//                        response.message.toString(),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//            }
+//        })
 //endregion
 
 //region get product by id
