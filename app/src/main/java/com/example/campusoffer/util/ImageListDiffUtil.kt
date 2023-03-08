@@ -16,14 +16,17 @@ class ImageListDiffUtil(
     }
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition] === newList[newItemPosition]
-//        if (oldList[oldItemPosition] == null && newList[newItemPosition] == null) return true
-//        return false
+        if (oldList[oldItemPosition] == null && newList[newItemPosition] == null) return true
+        return false
     }
 
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
 //        return oldList[oldItemPosition] == newList[newItemPosition]
+//        if (oldList[oldItemPosition] == null){
+//            return newList[newItemPosition] == null
+//        }
+//        if (oldList[oldItemPosition]!!.sameAs(newList[newItemPosition])) return true
         if (oldList[oldItemPosition] == null && newList[newItemPosition] == null) return true
         return false
     }
