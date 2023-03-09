@@ -42,16 +42,17 @@ class SellViewModel @ViewModelInject constructor(
     fun postNewProduct(
         title: String,
         description: String,
-        price: Double
+        price: Double,
+        imageNum: Int
     ){
-        val body = NewProduct(CATEGORY_ROOT_ID, description, 0, price, USER_TEST_ID, title)
+        val body = NewProduct(CATEGORY_ROOT_ID, description, imageNum, price, USER_TEST_ID, title) //TODO: fix the hardcode
         viewModelScope.launch {
             val res = productRepository.remote.postNewProduct(body)
             Log.v(TAG, res.body()?.idList.toString())
-            postProductRes.value = handleNewProductResponse(res)
             if(res.isSuccessful){
-                postImages(res.body()!!)
+                postImages(res.body()!!, imageUriList.map{ Uri.parse(it.toString()) }) // deep copy
             }
+            postProductRes.value = handleNewProductResponse(res)
         }
 
     }
@@ -78,9 +79,10 @@ class SellViewModel @ViewModelInject constructor(
 
     }
 
-    private fun postImages(idRes: ImageIdList){
+    private fun postImages(idRes: ImageIdList, imageUriList: List<Uri>){
         val idList = idRes.idList
         if (idList.isEmpty() || idList.size != imageUriList.size){
+            Log.v(TAG, "size difference")
             return
         }
         viewModelScope.launch {

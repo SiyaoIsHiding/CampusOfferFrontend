@@ -64,7 +64,7 @@ class SellFragment : Fragment() {
         binding.submitButton.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 Log.v(TAG, mView.editTitle.text.toString())
-                sellViewModel.postNewProduct(binding.editTitle.text.toString(), binding.editDescription.text.toString(), binding.editPrice.text.toString().toDouble())
+                sellViewModel.postNewProduct(binding.editTitle.text.toString(), binding.editDescription.text.toString(), binding.editPrice.text.toString().toDouble(), sellViewModel.imageUriList.size)
             }
         })
 
@@ -90,6 +90,7 @@ class SellFragment : Fragment() {
                     binding.editDescription.text.clear()
                     binding.editPrice.text.clear()
                     sellViewModel.imageUriList.clear()
+                    binding.imagesLinearLayout.removeAllViews()
                 }
 
                 is NetworkResult.Error -> {
