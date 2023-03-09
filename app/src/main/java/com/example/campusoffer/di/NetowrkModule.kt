@@ -21,7 +21,7 @@ object NetowrkModule {
     @Provides
     fun provideHttpClien(): OkHttpClient{
         val logging = HttpLoggingInterceptor()
-        logging.level = HttpLoggingInterceptor.Level.BASIC
+        logging.level = HttpLoggingInterceptor.Level.BODY
         return OkHttpClient.Builder()
             .addInterceptor(logging)
             .readTimeout(15, TimeUnit.SECONDS)

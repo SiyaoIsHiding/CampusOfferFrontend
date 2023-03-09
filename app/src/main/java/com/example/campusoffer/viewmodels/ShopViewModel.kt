@@ -32,54 +32,11 @@ class ShopViewModel @ViewModelInject constructor(
                 viewModelScope.launch {
                     val byteArray = productRepository.getImageBytesById(product!!._images!!.get(0))
                     if (byteArray != null){
-                        Log.v(TAG, "byteArray not null")
                         val decodedImage = BitmapFactory.decodeByteArray(byteArray, 0 , byteArray.size)
                         coverImageList.value!!.set(ind, decodedImage)
                         coverImageList.value = coverImageList.value
                     }
                 }
-            }
-        }
-    }
-
-    var productsUnderCategoryRes: MutableLiveData<NetworkResult<ProductsIdList>> = MutableLiveData()
-
-    fun getProductsUnderCategory(queries: Map<String, String>) = viewModelScope.launch {
-        getProductsUnderCategorySafeCall(queries)
-    }
-
-    private suspend fun getProductsUnderCategorySafeCall(queries: Map<String, String>) {
-        productsUnderCategoryRes.value = NetworkResult.Loading()
-
-        try {
-            val res = productRepository.remote.getProductsUnderCategory(queries)
-            productsUnderCategoryRes.value = handleProductsUnderCategoryResponse(res)
-        } catch (e: Exception) {
-            productsUnderCategoryRes.value = NetworkResult.Error("No Internet Connection.")
-        }
-
-    }
-
-    private fun handleProductsUnderCategoryResponse(res: Response<ProductsIdList>): NetworkResult<ProductsIdList> {
-        when {
-            res.code() >= 500 -> {
-                return NetworkResult.Error("Server Internal Error")
-            }
-
-            res.code() >= 400 -> {
-                return NetworkResult.Error("Server Error")
-            }
-
-            res.body()!!.productId.isEmpty() -> {
-                return NetworkResult.Error("No product under this category")
-            }
-
-            res.isSuccessful -> {
-                return NetworkResult.Success(res.body()!!)
-            }
-
-            else -> {
-                return NetworkResult.Error(res.message())
             }
         }
     }

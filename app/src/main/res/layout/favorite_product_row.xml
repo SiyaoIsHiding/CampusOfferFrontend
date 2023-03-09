@@ -7,6 +7,9 @@
         <variable
             name="product"
             type="com.example.campusoffer.models.Product" />
+        <variable
+            name="coverImage"
+            type="android.graphics.Bitmap" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -62,6 +65,7 @@
                     android:layout_marginTop="16dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_launcher_image"
+                    loadImageFromUrl="@{coverImage}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"

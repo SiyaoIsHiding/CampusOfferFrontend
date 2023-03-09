@@ -58,9 +58,7 @@ class ProductRowBinding{
         @BindingAdapter("loadImageFromUrl")
         @JvmStatic
         fun loadImageFromUrl(imageView: ImageView, bitmap: Bitmap?) {
-            Log.v(TAG, "loadImageFromUrl")
             if (bitmap != null){
-                Log.v(TAG, "loadImageFromUrl Not Null")
                 imageView.setImageBitmap(bitmap)
             }
         }
