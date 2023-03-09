@@ -50,13 +50,12 @@
 
         <Button
             android:id="@+id/submitButton"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="8dp"
             android:text="Submit a New"
             app:layout_constraintBottom_toTopOf="@+id/listSaleButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toEndOf="@+id/listSaleButton" />
 
         <Button
             android:id="@+id/listSaleButton"
@@ -86,21 +85,20 @@
 
         <Button
             android:id="@+id/addImageButton"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="8dp"
             android:text="Add Images"
-            app:layout_constraintBottom_toTopOf="@+id/submitButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintBottom_toTopOf="@+id/listSaleButton"
+            app:layout_constraintStart_toStartOf="@+id/listSaleButton" />
 
         <ScrollView
             android:id="@+id/scrollView"
-            android:layout_width="408dp"
+            android:layout_width="300dp"
             android:layout_height="224dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editDescription">
