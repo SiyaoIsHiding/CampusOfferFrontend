@@ -6,12 +6,10 @@ import com.example.campusoffer.models.Category
 import com.example.campusoffer.models.Product
 import com.example.campusoffer.models.User
 import com.example.campusoffer.models.requests.NewProduct
-import com.example.campusoffer.models.responses.ImageIdList
-import com.example.campusoffer.models.responses.SingleImage
-import com.example.campusoffer.models.responses.ProductsIdList
-import com.example.campusoffer.models.responses.SubCategory
+import com.example.campusoffer.models.responses.*
 import com.example.campusoffer.util.Constants.Companion.QUERY_CATEGORY_ID
 import com.example.campusoffer.util.Constants.Companion.QUERY_ID
+import com.example.campusoffer.util.Constants.Companion.QUERY_USER_ID
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -68,5 +66,12 @@ class RemoteDataSource @Inject constructor(
 
     suspend fun updateProfile(id: String, user: User): Response<Void>{
         return campusOfferApi.updateProfile(id, user)
+    }
+
+    suspend fun getSavedProducts(queries: Map<String, String>): Response<SavedProducts>{
+        if(!queries.containsKey(QUERY_USER_ID)){
+            Log.e(DEBUG_TAG, "Mandatory queries parameter not found")
+        }
+        return campusOfferApi.getSavedProducts(queries)
     }
 }

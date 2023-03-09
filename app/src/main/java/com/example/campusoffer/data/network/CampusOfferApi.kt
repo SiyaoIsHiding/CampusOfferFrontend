@@ -4,10 +4,7 @@ import com.example.campusoffer.models.Category
 import com.example.campusoffer.models.Product
 import com.example.campusoffer.models.User
 import com.example.campusoffer.models.requests.NewProduct
-import com.example.campusoffer.models.responses.ImageIdList
-import com.example.campusoffer.models.responses.SingleImage
-import com.example.campusoffer.models.responses.ProductsIdList
-import com.example.campusoffer.models.responses.SubCategory
+import com.example.campusoffer.models.responses.*
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -74,4 +71,9 @@ interface CampusOfferApi {
         @Path("id") id: String,
         @Body user : User
     ): Response<Void>
+
+    @GET("/saved_products")
+    suspend fun getSavedProducts(
+        @QueryMap queries: Map<String, String>
+    ): Response<SavedProducts>
 }

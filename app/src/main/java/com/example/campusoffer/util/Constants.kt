@@ -10,6 +10,7 @@ class Constants {
         // API Query Keys
         const val QUERY_CATEGORY_ID = "category_id"
         const val QUERY_ID = "id"
+        const val QUERY_USER_ID = "usr_id"
 
         // ID-s
         const val CATEGORY_ROOT_ID = "00000000-0000-0000-0000-00000000000"

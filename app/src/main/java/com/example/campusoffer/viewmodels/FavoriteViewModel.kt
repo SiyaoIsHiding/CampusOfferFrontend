@@ -23,7 +23,7 @@ class FavoriteViewModel @ViewModelInject constructor(
 
     private val TAG = "FavoriteViewModel"
     fun getProductsList(queries: Map<String, String>) = viewModelScope.launch{
-        productRepository.getListProducts(queries, favoritesList, coverImageList){ind, product -> //TODO: change to saved products
+        productRepository.getSavedProducts(queries, favoritesList, coverImageList){ind, product -> //TODO: change to saved products
             if (!product?._images.isNullOrEmpty()){
                 viewModelScope.launch {
                     val byteArray = productRepository.getImageBytesById(product!!._images!!.get(0))
