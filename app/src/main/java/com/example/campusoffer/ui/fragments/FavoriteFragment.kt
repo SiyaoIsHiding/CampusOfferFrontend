@@ -53,8 +53,8 @@ class FavoriteFragment : Fragment() {
     private fun requestData() {
         val queryMap = HashMap<String, String>()
         queryMap.put(
-            Constants.QUERY_CATEGORY_ID,
-            Constants.CATEGORY_ROOT_ID
+            Constants.QUERY_USER_ID,
+            Constants.USER_TEST_ID
         ) //TODO: hard coded category id and using getProductsList
         favoriteViewModel.getProductsList(queryMap)
         favoriteViewModel.favoritesList.observe(viewLifecycleOwner) { response ->
