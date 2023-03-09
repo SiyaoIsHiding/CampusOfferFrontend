@@ -2,9 +2,12 @@ package com.example.campusoffer.ui.fragments
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Base64
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -24,6 +27,8 @@ import com.example.campusoffer.viewmodels.SellViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_sell.view.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import java.io.ByteArrayOutputStream
+import java.io.InputStream
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
@@ -39,11 +44,12 @@ class SellFragment : Fragment() {
     private val TAG = "SellFragment"
     private val SELECT_PICTURE = 200
 
-    private val imageUriList: MutableList<Uri> = mutableListOf()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sellViewModel = ViewModelProvider(requireActivity()).get(SellViewModel::class.java)
+        sellViewModel.fragment = this
     }
 
     override fun onCreateView(
@@ -83,6 +89,7 @@ class SellFragment : Fragment() {
                     binding.editTitle.text.clear()
                     binding.editDescription.text.clear()
                     binding.editPrice.text.clear()
+                    sellViewModel.imageUriList.clear()
                 }
 
                 is NetworkResult.Error -> {
@@ -115,15 +122,15 @@ class SellFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if(resultCode == Activity.RESULT_OK && requestCode == SELECT_PICTURE){
-            imageUriList.clear()
+            sellViewModel.imageUriList.clear()
             if(data?.clipData == null){
                 // Single image
                 val imageUri = data!!.data!!
-                imageUriList.add(imageUri)
+                sellViewModel.imageUriList.add(imageUri)
             }else{
                 val count = data.clipData!!.itemCount
                 for(i in 0 until count){
-                    imageUriList.add(data.clipData?.getItemAt(i)!!.uri)
+                    sellViewModel.imageUriList.add(data.clipData?.getItemAt(i)!!.uri)
                 }
             }
             inflateImages()
@@ -133,10 +140,12 @@ class SellFragment : Fragment() {
     private fun inflateImages(){
         binding.imagesLinearLayout.removeAllViews()
 
-        for(i in imageUriList.indices){
+        for(i in sellViewModel.imageUriList.indices){
             val imageView = ImageView(requireContext())
-            imageView.setImageURI(imageUriList.get(i))
+            imageView.setImageURI(sellViewModel.imageUriList.get(i))
             binding.imagesLinearLayout.addView(imageView)
         }
     }
+
+
 }

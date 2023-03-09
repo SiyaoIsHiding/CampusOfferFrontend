@@ -1,14 +1,20 @@
 package com.example.campusoffer.data
 
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
+import android.opengl.ETC1.encodeImage
 import android.util.Base64
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.campusoffer.models.Product
+import com.example.campusoffer.models.responses.ImageIdList
 import com.example.campusoffer.util.Constants.Companion.QUERY_ID
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.*
+import java.io.ByteArrayOutputStream
+import java.io.InputStream
 import javax.inject.Inject
+
 
 @ActivityRetainedScoped
 class ProductRepository @Inject constructor(
@@ -55,4 +61,7 @@ class ProductRepository @Inject constructor(
         }
         return null
     }
+
+
+
 }

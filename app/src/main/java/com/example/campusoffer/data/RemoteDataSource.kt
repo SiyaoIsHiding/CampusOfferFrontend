@@ -61,4 +61,8 @@ class RemoteDataSource @Inject constructor(
     suspend fun postNewProduct(product: NewProduct) : Response<ImageIdList>{
         return campusOfferApi.postProduct(product)
     }
+
+    suspend fun postImage(id: String, image: SingleImage): Response<Void>{
+        return campusOfferApi.postImage(id, image)
+    }
 }
