@@ -69,4 +69,9 @@ interface CampusOfferApi {
         @Body image: SingleImage
     ): Response<Void>
 
+    @PATCH("/usr/{id}")
+    suspend fun updateProfile(
+        @Path("id") id: String,
+        @Body user : User
+    ): Response<Void>
 }

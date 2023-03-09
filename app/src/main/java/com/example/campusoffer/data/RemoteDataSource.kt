@@ -65,4 +65,8 @@ class RemoteDataSource @Inject constructor(
     suspend fun postImage(id: String, image: SingleImage): Response<Void>{
         return campusOfferApi.postImage(id, image)
     }
+
+    suspend fun updateProfile(id: String, user: User): Response<Void>{
+        return campusOfferApi.updateProfile(id, user)
+    }
 }

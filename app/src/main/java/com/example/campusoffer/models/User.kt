@@ -9,9 +9,9 @@ data class User(
     @SerializedName("first_name")
     var firstName: String,
     @SerializedName("id")
-    val id: String,
+    val id: String?,
     @SerializedName("last_name")
     var lastName: String,
-    @SerializedName("uci_netid")
-    val uciNetid: String
+    @SerializedName("email")
+    val email: String
 )

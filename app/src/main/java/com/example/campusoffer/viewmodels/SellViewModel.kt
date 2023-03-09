@@ -50,7 +50,7 @@ class SellViewModel @ViewModelInject constructor(
             val res = productRepository.remote.postNewProduct(body)
             Log.v(TAG, res.body()?.idList.toString())
             if(res.isSuccessful){
-                postImages(res.body()!!, imageUriList.map{ Uri.parse(it.toString()) }) // deep copy
+                postImages(res.body()!!, imageUriList.toList()) // deep copy
             }
             postProductRes.value = handleNewProductResponse(res)
         }
