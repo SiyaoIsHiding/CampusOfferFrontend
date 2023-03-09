@@ -18,11 +18,12 @@
 
         <EditText
             android:id="@+id/editTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
             android:layout_marginTop="24dp"
             android:ems="10"
             android:hint="Title"
+            android:background="@color/lightGray"
             android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -30,10 +31,11 @@
 
         <EditText
             android:id="@+id/editDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
             android:layout_marginTop="24dp"
             android:ems="10"
+            android:background="@color/lightGray"
             android:hint="Description"
             android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
@@ -55,7 +57,7 @@
             android:id="@+id/listSaleButton"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="48dp"
+            android:layout_marginBottom="16dp"
             android:text="My Sale List"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -63,12 +65,13 @@
 
         <EditText
             android:id="@+id/editPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
             android:ems="10"
             android:hint="Price"
+            android:background="@color/lightGray"
             android:inputType="number|numberDecimal"
             app:layout_constraintBottom_toTopOf="@+id/editDescription"
             app:layout_constraintEnd_toEndOf="parent"
@@ -78,25 +81,21 @@
 
         <Button
             android:id="@+id/addImageButton"
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="240dp"
-            android:layout_marginTop="285dp"
-            android:layout_marginEnd="77dp"
-            android:layout_marginBottom="35dp"
+            android:layout_marginBottom="12dp"
             android:text="Add Images"
             app:layout_constraintBottom_toTopOf="@+id/submitButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editDescription" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ScrollView
             android:id="@+id/scrollView"
             android:layout_width="408dp"
             android:layout_height="224dp"
-            android:layout_marginTop="26dp"
-            android:layout_marginBottom="35dp"
-            app:layout_constraintBottom_toTopOf="@+id/addImageButton"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editDescription">
