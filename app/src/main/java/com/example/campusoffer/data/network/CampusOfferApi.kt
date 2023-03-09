@@ -62,4 +62,16 @@ interface CampusOfferApi {
     suspend fun postProduct(
         @Body product: NewProduct
     ): Response<ImageIdList>
+
+    @PUT("/images/{id}")
+    suspend fun postImage(
+        @Path("id") id: String,
+        @Body image: SingleImage
+    ): Response<Void>
+
+    @PATCH("/usr/{id}")
+    suspend fun updateProfile(
+        @Path("id") id: String,
+        @Body user : User
+    ): Response<Void>
 }

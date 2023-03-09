@@ -59,14 +59,17 @@ class FavoriteFragment : Fragment() {
         favoriteViewModel.getProductsList(queryMap)
         favoriteViewModel.favoritesList.observe(viewLifecycleOwner) { response ->
             when (response) {
-                emptyList<Product>() -> {
+                null -> {
                     showShimmerEffect()
                 }
                 else -> {
-                    mAdapter.setData(response.filterNotNull())
+                    mAdapter.setProductData(response.filterNotNull())
                     hideShimmerEffect()
                 }
             }
+        }
+        favoriteViewModel.coverImageList.observe(viewLifecycleOwner) {imagesList ->
+            mAdapter.setCoverImagesData(imagesList)
         }
     }
 

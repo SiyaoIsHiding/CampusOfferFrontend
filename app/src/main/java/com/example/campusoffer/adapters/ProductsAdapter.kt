@@ -61,9 +61,9 @@ class ProductsAdapter:RecyclerView.Adapter<ProductsAdapter.MyViewHolder>() {
 
     fun setCoverImagesData(newDataCoverImages : List<Bitmap?>){
         Log.v(TAG, "setCoverImagesData")
-        val imagesDiff = ImageListDiffUtil(imagesList, newDataCoverImages)
-        val diffUtilResultImages = DiffUtil.calculateDiff(imagesDiff)
+//        val imagesDiff = ImageListDiffUtil(imagesList, newDataCoverImages)
+//        val diffUtilResultImages = DiffUtil.calculateDiff(imagesDiff)
         imagesList = newDataCoverImages
-        diffUtilResultImages.dispatchUpdatesTo(this)
+//        diffUtilResultImages.dispatchUpdatesTo(this)
     }
 }

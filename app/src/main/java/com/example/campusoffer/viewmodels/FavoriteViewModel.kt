@@ -1,6 +1,9 @@
 package com.example.campusoffer.viewmodels
 
 import android.app.Application
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
@@ -16,9 +19,22 @@ class FavoriteViewModel @ViewModelInject constructor(
 ): AndroidViewModel(application){
 
     var favoritesList : MutableLiveData<MutableList<Product?>> = MutableLiveData()
+    var coverImageList: MutableLiveData<MutableList<Bitmap?>> = MutableLiveData(mutableListOf())
 
+    private val TAG = "FavoriteViewModel"
     fun getProductsList(queries: Map<String, String>) = viewModelScope.launch{
-//        productRepository.getListProducts(queries, favoritesList) //FIXME
+        productRepository.getListProducts(queries, favoritesList, coverImageList){ind, product -> //TODO: change to saved products
+            if (!product?._images.isNullOrEmpty()){
+                viewModelScope.launch {
+                    val byteArray = productRepository.getImageBytesById(product!!._images!!.get(0))
+                    if (byteArray != null){
+                        val decodedImage = BitmapFactory.decodeByteArray(byteArray, 0 , byteArray.size)
+                        coverImageList.value!!.set(ind, decodedImage)
+                        coverImageList.value = coverImageList.value
+                    }
+                }
+            }
+        }
     }
 
     fun insertFavoriteProduct( product: Product) {

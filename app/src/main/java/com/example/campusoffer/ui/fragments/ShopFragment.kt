@@ -73,7 +73,6 @@ class ShopFragment : Fragment() {
             }
         }
         shopViewModel.coverImageList.observe(viewLifecycleOwner) {imagesList ->
-            Log.v(TAG, "CoverImageList updated")
             mAdapter.setCoverImagesData(imagesList)
         }
 //        shopViewModel.getProductsUnderCategory(queryMap);

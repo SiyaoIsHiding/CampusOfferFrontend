@@ -1,24 +1,17 @@
 package com.example.campusoffer.binding
 
-import android.app.Notification.Action
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
-import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
-import coil.load
 import com.example.campusoffer.R
-import com.example.campusoffer.data.ProductRepository
 import com.example.campusoffer.models.Product
 import com.example.campusoffer.ui.fragments.FavoriteFragmentDirections
 import com.example.campusoffer.ui.fragments.ShopFragmentDirections
-import javax.inject.Inject
 
 class ProductRowBinding{
     companion object{
@@ -58,9 +51,7 @@ class ProductRowBinding{
         @BindingAdapter("loadImageFromUrl")
         @JvmStatic
         fun loadImageFromUrl(imageView: ImageView, bitmap: Bitmap?) {
-            Log.v(TAG, "loadImageFromUrl")
             if (bitmap != null){
-                Log.v(TAG, "loadImageFromUrl Not Null")
                 imageView.setImageBitmap(bitmap)
             }
         }
@@ -69,7 +60,7 @@ class ProductRowBinding{
 
         @BindingAdapter("applySoldColor")
         @JvmStatic
-        fun applyVeganColor(view: View, sold: Int) {
+        fun applySoldColor(view: View, sold: Int) {
             if(sold == 0){
                 when(view){
                     is ImageView -> {

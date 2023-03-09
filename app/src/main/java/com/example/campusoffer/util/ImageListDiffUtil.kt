@@ -16,8 +16,7 @@ class ImageListDiffUtil(
     }
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        if (oldList[oldItemPosition] == null && newList[newItemPosition] == null) return true
-        return false
+        return oldList[oldItemPosition] === newList[newItemPosition]
     }
 
 

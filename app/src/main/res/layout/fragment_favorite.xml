@@ -6,9 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable
-            name="product"
-            type="com.example.campusoffer.models.Product" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
