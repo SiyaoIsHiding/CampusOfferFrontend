@@ -1,18 +1,24 @@
 package com.example.campusoffer.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.campusoffer.R
+import com.example.campusoffer.databinding.FragmentOverviewBinding
+import com.example.campusoffer.databinding.FragmentProfileBinding
+import com.example.campusoffer.models.User
 import com.example.campusoffer.util.Constants.Companion.CATEGORY_ROOT_ID
 import com.example.campusoffer.util.Constants.Companion.QUERY_CATEGORY_ID
 import com.example.campusoffer.util.NetworkResult
 import com.example.campusoffer.viewmodels.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_overview.view.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 
 
@@ -23,13 +29,14 @@ class ProfileFragment : Fragment() {
     private lateinit var mView: View
     private val TAG = "Profile Fragment"
 
+    private var _binding: FragmentProfileBinding? = null
+    private val binding get() = _binding!!
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         profileViewModel = ViewModelProvider(requireActivity()).get(ProfileViewModel::class.java)
-
     }
-
 
 
 //
@@ -51,7 +58,27 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        mView = inflater.inflate(R.layout.fragment_profile, container, false)
+        _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        mView = binding.root
+
+        var user = User("Living in verano, contact me via fengnans@uci.edu", "Sonia", "kda98erf", "Sun", "fengnans")
+        mView.profile_first_name.setText(user.firstName)
+        mView.profile_last_name.setText(user.lastName)
+        mView.profile_bio.setText(user.bio)
+
+        binding.toggleEditButton.bind(binding.profileFirstName, binding.profileLastName, binding.profileBio)
+
+        binding.toggleEditButton.setOnClickListener{
+            if ( !binding.toggleEditButton.getEditing()){
+                user.firstName = binding.profileFirstName.getText()
+                user.lastName = binding.profileLastName.getText()
+                user.bio = binding.profileBio.getText()
+                Log.d("new user info", user.toString())
+            }
+        }
+
+
+        return mView
 
 //region get products under category
 //        val queryMap = HashMap<String, String>()
@@ -198,8 +225,6 @@ class ProfileFragment : Fragment() {
 //            }
 //        })
 //endregion
-
-        return mView
     }
 
 }
