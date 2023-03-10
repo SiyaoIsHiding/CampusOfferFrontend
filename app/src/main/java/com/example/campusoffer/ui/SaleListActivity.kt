@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.campusoffer.R
 import com.example.campusoffer.adapters.SellListAdapter
@@ -27,14 +28,12 @@ class SaleListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sellListViewModel = ViewModelProvider(this).get(SellListViewModel::class.java)
-//        setContentView(R.layout.activity_sale_list)
-//        val shimmerRec                        yclerView = findViewById<ShimmerRecyclerView>(R.id.shimmer_recycler_view)
-//        shimmerRecyclerView.layoutManager = LinearLayoutManager(this)
-//        shimmerR                                           )
-//        requestData(shimmerRecyclerView)
+
         _binding = DataBindingUtil.setContentView(this, R.layout.activity_sale_list)
         setupRecyclerView()
         requestData()
+
+
     }
 
 

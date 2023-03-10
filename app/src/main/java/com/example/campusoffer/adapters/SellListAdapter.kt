@@ -1,16 +1,21 @@
 package com.example.campusoffer.adapters
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.campusoffer.databinding.SellProductRowBinding
 import com.example.campusoffer.models.Product
+import com.example.campusoffer.ui.DetailsActivity
 import com.example.campusoffer.util.ImageListDiffUtil
 import com.example.campusoffer.util.ProductListDiffUtil
+
 
 class SellListAdapter : RecyclerView.Adapter<SellListAdapter.MyViewHolder>() {
 
@@ -50,6 +55,14 @@ class SellListAdapter : RecyclerView.Adapter<SellListAdapter.MyViewHolder>() {
         val currentProduct = productList[position]
         val currentCover = imagesList[position]
         holder.bind(currentProduct, currentCover)
+
+        holder.itemView.setOnClickListener {
+            val intent = Intent(holder.itemView.context, DetailsActivity::class.java)
+            intent.putExtra("product", currentProduct)
+            val productBundle = Bundle()
+            productBundle.putParcelable("product", currentProduct)
+            startActivity(holder.itemView.context, intent, productBundle)
+        }
     }
 
     fun setProductsData(newDataProducts: List<Product>){
