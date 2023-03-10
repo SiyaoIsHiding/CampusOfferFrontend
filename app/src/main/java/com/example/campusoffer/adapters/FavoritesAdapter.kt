@@ -1,6 +1,7 @@
 package com.example.campusoffer.adapters
 
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -14,13 +15,13 @@ import com.example.campusoffer.util.ProductListDiffUtil
 class FavoritesAdapter : RecyclerView.Adapter<FavoritesAdapter.MyViewHolder>() {
 
     private var productList = emptyList<Product>()
-    private var imagesList = emptyList<Bitmap?>()
+    private var imagesList = emptyList<Drawable?>()
     private lateinit var starImage: ImageView
 
     class MyViewHolder(private val binding: FavoriteProductRowBinding):
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(product : Product, currentCover: Bitmap?){
+        fun bind(product : Product, currentCover: Drawable?){
             binding.product = product
             binding.coverImage = currentCover
             binding.executePendingBindings()
@@ -58,7 +59,7 @@ class FavoritesAdapter : RecyclerView.Adapter<FavoritesAdapter.MyViewHolder>() {
         diffUtilResult.dispatchUpdatesTo(this)
     }
 
-    fun setCoverImagesData(newDataCoverImages: List<Bitmap?>){
+    fun setCoverImagesData(newDataCoverImages: List<Drawable?>){
         val imagesDiff = ImageListDiffUtil(imagesList, newDataCoverImages)
         val diffUtilResultImages = DiffUtil.calculateDiff(imagesDiff)
         imagesList = newDataCoverImages

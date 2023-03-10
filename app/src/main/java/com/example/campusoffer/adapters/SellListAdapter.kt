@@ -1,22 +1,29 @@
 package com.example.campusoffer.adapters
 
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.campusoffer.databinding.SellProductRowBinding
 import com.example.campusoffer.models.Product
+import com.example.campusoffer.util.ImageListDiffUtil
 import com.example.campusoffer.util.ProductListDiffUtil
 
 class SellListAdapter : RecyclerView.Adapter<SellListAdapter.MyViewHolder>() {
 
     private var productList = emptyList<Product>()
+    private var imagesList = emptyList<Drawable?>()
+    private val TAG = "SellListAdapter"
 
     class MyViewHolder(private val binding: SellProductRowBinding):
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(product : Product){
+        fun bind(product: Product, currentCover: Drawable?){
             binding.product = product
+            binding.coverImage = currentCover
             binding.executePendingBindings()
         }
 
@@ -41,14 +48,22 @@ class SellListAdapter : RecyclerView.Adapter<SellListAdapter.MyViewHolder>() {
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentProduct = productList[position]
-        holder.bind(currentProduct)
+        val currentCover = imagesList[position]
+        holder.bind(currentProduct, currentCover)
     }
 
-    fun setData(newData : List<Product>){
-        val recipesDiffUtil =
-            ProductListDiffUtil(productList, newData)
-        val diffUtilResult = DiffUtil.calculateDiff(recipesDiffUtil)
-        productList = newData
-        diffUtilResult.dispatchUpdatesTo(this)
+    fun setProductsData(newDataProducts: List<Product>){
+        val productsDiff =
+            ProductListDiffUtil(productList, newDataProducts)
+        val diffUtilResultProducts = DiffUtil.calculateDiff(productsDiff)
+        productList = newDataProducts
+        diffUtilResultProducts.dispatchUpdatesTo(this)
+    }
+
+    fun setCoverImagesData(newDataCoverImages : List<Drawable?>){
+        val imagesDiff = ImageListDiffUtil(imagesList, newDataCoverImages)
+        val diffUtilResultImages = DiffUtil.calculateDiff(imagesDiff)
+        imagesList = newDataCoverImages
+        diffUtilResultImages.dispatchUpdatesTo(this)
     }
 }
