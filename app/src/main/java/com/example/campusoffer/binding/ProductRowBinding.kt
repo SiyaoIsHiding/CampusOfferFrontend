@@ -66,10 +66,12 @@ class ProductRowBinding{
         }
 
 
-
         @BindingAdapter("loadImageFromUrl")
         @JvmStatic
         fun loadImageFromUrl(imageView: ImageView, drawable: Drawable?) {
+            if (drawable == null) {
+                imageView.setImageResource(R.drawable.ic_no_image)
+            }
             imageView.setImageDrawable(drawable)
         }
 
