@@ -9,7 +9,7 @@ import com.example.campusoffer.models.requests.NewProduct
 import com.example.campusoffer.models.responses.*
 import com.example.campusoffer.util.Constants.Companion.QUERY_CATEGORY_ID
 import com.example.campusoffer.util.Constants.Companion.QUERY_ID
-import com.example.campusoffer.util.Constants.Companion.QUERY_USER_ID
+import com.example.campusoffer.util.Constants.Companion.QUERY_USR_ID
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -18,7 +18,7 @@ class RemoteDataSource @Inject constructor(
 ){
     private val DEBUG_TAG = "RemoteDataSource"
     suspend fun getProductsUnderCategory(queries: Map<String, String>): Response<ProductsIdList>{
-        if (!queries.containsKey(QUERY_CATEGORY_ID)) {
+        if (!queries.containsKey(QUERY_CATEGORY_ID) && !queries.containsKey(QUERY_USR_ID)) {
             Log.e(DEBUG_TAG, "Mandatory queries parameter not found")
         }
         return campusOfferApi.getProductsUnderCategory(queries)
@@ -69,7 +69,7 @@ class RemoteDataSource @Inject constructor(
     }
 
     suspend fun getSavedProducts(queries: Map<String, String>): Response<SavedProducts>{
-        if(!queries.containsKey(QUERY_USER_ID)){
+        if(!queries.containsKey(QUERY_USR_ID)){
             Log.e(DEBUG_TAG, "Mandatory queries parameter not found")
         }
         return campusOfferApi.getSavedProducts(queries)

@@ -2,6 +2,7 @@ package com.example.campusoffer.binding
 
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
@@ -69,10 +70,8 @@ class ProductRowBinding{
 
         @BindingAdapter("loadImageFromUrl")
         @JvmStatic
-        fun loadImageFromUrl(imageView: ImageView, bitmap: Bitmap?) {
-            if (bitmap != null){
-                imageView.setImageBitmap(bitmap)
-            }
+        fun loadImageFromUrl(imageView: ImageView, drawable: Drawable?) {
+            imageView.setImageDrawable(drawable)
         }
 
 

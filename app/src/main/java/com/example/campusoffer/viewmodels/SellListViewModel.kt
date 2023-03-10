@@ -1,37 +1,34 @@
 package com.example.campusoffer.viewmodels
 
+import android.app.Application
+import android.graphics.drawable.Drawable
+import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.example.campusoffer.data.ProductRepository
 import com.example.campusoffer.models.Product
+import kotlinx.coroutines.launch
 
-class SellListViewModel {
+class SellListViewModel @ViewModelInject constructor(
+    private val productRepository: ProductRepository,
+    application: Application
+): AndroidViewModel(application){
 
-    fun applyHardCodeData() : List<Product> {
+    var productsList : MutableLiveData<MutableList<Product?>> = MutableLiveData(mutableListOf())
+    var coverImageList: MutableLiveData<MutableList<Drawable?>> = MutableLiveData(mutableListOf())
 
-        val image = listOf<String>(
-            "b8884ed5-b0de-11ed-a0a9-00224829ee55",
-            "c514d4b9-b0de-11ed-a0a9-00224829ee55"
-        )
-        val product1: Product = Product(
-            "41859207-5471-4223-b01c-e566d506c799",
-            "0301",
-            "A fully working chair. Bought in March last year.",
-            "92c6ebb6-b0ca-11ed-a0a9-00224829ee55",
-            image,
-            0,
-            29.9,
-            "fcda1dda-5b3b-4c6c-88a7-46521d132015",
-            "An office chair at Verano Place"
-        )
-        val product2: Product = Product(
-            "41859207-5471-4223-b01c-e566d506c799",
-            "0301",
-            "A fully working chair. Bought in March last year.",
-            "92c6ebb6-b0ca-11ed-a0a9-00224829ee55",
-            image,
-            1,
-            29.9,
-            "fcda1dda-5b3b-4c6c-88a7-46521d132015",
-            "An office chair at Verano Place"
-        )
-        return listOf(product1, product2, product1, product1)
+    fun getProductsList(queries: Map<String, String>) = viewModelScope.launch{
+        productRepository.getListProducts(queries, productsList, coverImageList) {ind, product ->
+            if (!product?._images.isNullOrEmpty()){
+                viewModelScope.launch {
+                    val drawable = productRepository.getImageBytesById(product!!._images!!.get(0))
+                    if (drawable != null){
+                        coverImageList.value!!.set(ind, drawable)
+                        coverImageList.value = coverImageList.value
+                    }
+                }
+            }
+        }
     }
 }

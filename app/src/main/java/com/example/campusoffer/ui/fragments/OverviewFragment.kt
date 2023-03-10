@@ -65,11 +65,11 @@ class OverviewFragment : Fragment() {
         }
 
         overviewViewModel.requestCoverImage(myBundle!!)
-        overviewViewModel.imageBitmap.observe(viewLifecycleOwner) {bitmap ->
-            when(bitmap){
+        overviewViewModel.imageBitmap.observe(viewLifecycleOwner) {drawable ->
+            when(drawable){
                 null -> {}
                 else -> {
-                    mView.detail_image.setImageBitmap(bitmap)
+                    mView.detail_image.setImageDrawable(drawable)
                 }
             }
         }
