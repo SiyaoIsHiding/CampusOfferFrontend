@@ -11,6 +11,12 @@
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
     </style>
 
+    <style name="SplashScreenStyle" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+<!--        <item name="android:windowBackground">@drawable/ic_splash</item>-->
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
+
     <style name="CustomTabLayoutStyle" parent="Widget.Design.TabLayout">
         <item name="background">@color/colorAccent</item>
         <item name="tabIndicatorColor">@color/white</item>
