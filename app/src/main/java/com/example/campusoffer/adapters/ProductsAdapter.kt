@@ -1,6 +1,8 @@
 package com.example.campusoffer.adapters
 
 import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -14,13 +16,13 @@ import com.example.campusoffer.util.ProductListDiffUtil
 class ProductsAdapter:RecyclerView.Adapter<ProductsAdapter.MyViewHolder>() {
 
     private var productList = emptyList<Product>()
-    private var imagesList = emptyList<Bitmap?>()
+    private var imagesList = emptyList<Drawable?>()
     private val TAG = "ProductsAdapter"
 
     class MyViewHolder(private val binding: ProductRowBinding):
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(product: Product, currentCover: Bitmap?){
+        fun bind(product: Product, currentCover: Drawable?){
             binding.product = product
             binding.coverImage = currentCover
             binding.executePendingBindings()
@@ -59,11 +61,14 @@ class ProductsAdapter:RecyclerView.Adapter<ProductsAdapter.MyViewHolder>() {
 
     }
 
-    fun setCoverImagesData(newDataCoverImages : List<Bitmap?>){
+    fun setCoverImagesData(newDataCoverImages : List<Drawable?>){
         Log.v(TAG, "setCoverImagesData")
-//        val imagesDiff = ImageListDiffUtil(imagesList, newDataCoverImages)
-//        val diffUtilResultImages = DiffUtil.calculateDiff(imagesDiff)
+        if(!newDataCoverImages.isNullOrEmpty() && newDataCoverImages.get(0) != null){
+            Log.v(TAG, "first not null")
+        }
+        val imagesDiff = ImageListDiffUtil(imagesList, newDataCoverImages)
+        val diffUtilResultImages = DiffUtil.calculateDiff(imagesDiff)
         imagesList = newDataCoverImages
-//        diffUtilResultImages.dispatchUpdatesTo(this)
+        diffUtilResultImages.dispatchUpdatesTo(this)
     }
 }

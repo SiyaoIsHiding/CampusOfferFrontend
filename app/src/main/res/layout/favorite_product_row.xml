@@ -9,7 +9,7 @@
             type="com.example.campusoffer.models.Product" />
         <variable
             name="coverImage"
-            type="android.graphics.Bitmap" />
+            type="android.graphics.drawable.Drawable" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -1,8 +1,7 @@
 package com.example.campusoffer.viewmodels
 
 import android.app.Application
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
@@ -15,15 +14,14 @@ class OverviewViewModel @ViewModelInject constructor(
     private val productRepository: ProductRepository,
     application: Application
 ) : AndroidViewModel(application) {
-    var imageBitmap : MutableLiveData<Bitmap> = MutableLiveData()
+    var imageBitmap : MutableLiveData<Drawable> = MutableLiveData()
 
     fun requestCoverImage(product: Product){
         if (!product._images.isNullOrEmpty()){
             viewModelScope.launch {
-                val byteArray = productRepository.getImageBytesById(product._images?.get(0))
-                if (byteArray != null){
-                    val decodedImage = BitmapFactory.decodeByteArray(byteArray, 0 , byteArray.size)
-                    imageBitmap.value = decodedImage
+                val drawable = productRepository.getImageBytesById(product._images?.get(0))
+                if (drawable != null){
+                    imageBitmap.value = drawable
                 }
             }
         }

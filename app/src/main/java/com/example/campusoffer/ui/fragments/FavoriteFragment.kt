@@ -1,20 +1,14 @@
 package com.example.campusoffer.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.campusoffer.R
 import com.example.campusoffer.adapters.FavoritesAdapter
 import com.example.campusoffer.databinding.FragmentFavoriteBinding
-import com.example.campusoffer.models.Product
 import com.example.campusoffer.util.Constants
 import com.example.campusoffer.viewmodels.FavoriteViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -53,7 +47,7 @@ class FavoriteFragment : Fragment() {
     private fun requestData() {
         val queryMap = HashMap<String, String>()
         queryMap.put(
-            Constants.QUERY_USER_ID,
+            Constants.QUERY_USR_ID,
             Constants.USER_TEST_ID
         ) //TODO: hard coded category id and using getProductsList
         favoriteViewModel.getProductsList(queryMap)
