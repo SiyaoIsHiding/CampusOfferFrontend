@@ -71,8 +71,7 @@ class ProductRowBinding{
         fun loadImageFromUrl(imageView: ImageView, drawable: Drawable?) {
             if (drawable == null) {
                 imageView.setImageResource(R.drawable.ic_no_image)
-            }
-            imageView.setImageDrawable(drawable)
+            } else { imageView.setImageDrawable(drawable)}
         }
 
 
