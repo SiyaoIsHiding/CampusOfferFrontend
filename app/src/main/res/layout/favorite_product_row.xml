@@ -59,8 +59,8 @@
 
                 <ImageView
                     android:id="@+id/Product_imageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:scaleType="centerCrop"
