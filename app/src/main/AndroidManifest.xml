@@ -12,7 +12,7 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_icon2"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.CampusOffer">
@@ -34,17 +34,13 @@
             android:name=".ui.DetailsActivity"
             android:exported="false"
             android:label="Details"
-            android:theme="@style/DetailsActivityStyle" />
+            android:theme="@style/DetailsActivityStyle">
+        </activity>
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

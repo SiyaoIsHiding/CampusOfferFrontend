@@ -1,5 +1,6 @@
 package com.example.campusoffer.binding
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.util.Log
 import android.view.View
@@ -7,9 +8,13 @@ import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.findNavController
 import com.example.campusoffer.R
 import com.example.campusoffer.models.Product
+import com.example.campusoffer.ui.DetailsActivity
+//import com.example.campusoffer.ui.SaleListActivityDirections
 import com.example.campusoffer.ui.fragments.FavoriteFragmentDirections
 import com.example.campusoffer.ui.fragments.ShopFragmentDirections
 
@@ -44,6 +49,20 @@ class ProductRowBinding{
                 }
             }
         }
+
+        @BindingAdapter("onProductClickListenerSell")
+        @JvmStatic
+        fun onProductClickListenerSell(sellRowLayout: ConstraintLayout, product: Product) {
+            sellRowLayout.setOnClickListener {
+                try {
+                    sellRowLayout.findNavController().navigate(R.id.detailsActivity)
+                } catch (e: Exception) {
+                    Log.d("onProductClickListener", e.toString())
+                }
+            }
+        }
+
+
 
 
 

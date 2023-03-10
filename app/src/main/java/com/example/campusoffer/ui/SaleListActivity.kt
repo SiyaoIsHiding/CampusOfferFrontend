@@ -39,6 +39,7 @@ class SaleListActivity : AppCompatActivity() {
     }
 
 
+
     private fun requestData(shimmerRecyclerView: ShimmerRecyclerView) {
         sellListViewModel = SellListViewModel()
         shimmerRecyclerView.adapter = mAdapter
