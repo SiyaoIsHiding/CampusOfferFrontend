@@ -61,5 +61,7 @@
     <activity
         android:id="@+id/saleListActivity"
         android:name="com.example.campusoffer.ui.SaleListActivity"
-        android:label="SaleListActivity" />
+        android:label="SaleListActivity" >
+
+    </activity>
 </navigation>

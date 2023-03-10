@@ -38,6 +38,7 @@ class SaleListActivity : AppCompatActivity() {
     }
 
 
+
     private fun requestData() {
         val queryMap = HashMap<String, String>()
         queryMap.put(Constants.QUERY_USER_ID, Constants.USER_TEST_ID)
@@ -52,6 +53,7 @@ class SaleListActivity : AppCompatActivity() {
                     hideShimmerEffect()
                 }
             }
+
         }
         sellListViewModel.coverImageList.observe(this){imageList ->
             mAdapter.setCoverImagesData(imageList)
