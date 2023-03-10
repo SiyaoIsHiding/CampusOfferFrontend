@@ -51,6 +51,8 @@ class ProductRowBinding{
             }
         }
 
+
+        // Actually use onBindViewHolder in SellListAdapter
         @BindingAdapter("onProductClickListenerSell")
         @JvmStatic
         fun onProductClickListenerSell(sellRowLayout: ConstraintLayout, product: Product) {
@@ -62,9 +64,6 @@ class ProductRowBinding{
                 }
             }
         }
-
-
-
 
 
 
