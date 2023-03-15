@@ -1,6 +1,5 @@
 package com.example.campusoffer.ui.fragments
 
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,9 +10,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.campusoffer.databinding.FragmentOverviewBinding
 import com.example.campusoffer.models.Product
 import com.example.campusoffer.models.User
+import com.example.campusoffer.util.Constants
 import com.example.campusoffer.viewmodels.OverviewViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_overview.view.*
+import kotlinx.android.synthetic.main.fragment_profile.view.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
@@ -44,12 +45,9 @@ class OverviewFragment : Fragment() {
         mView.detail_title.text = myBundle?.title
         mView.detail_price.text = myBundle?.price.toString()
         mView.detail_description.text = myBundle?.description
-        val user = User("Living in verano", "Jane", "kda98erf", "He", "siyaoh4")
-        mView.detail_seller_first_name.text = user.firstName
-        mView.detail_seller_last_name.text = user.lastName
-        mView.detail_seller_bio.text = user.bio
 
         requestCoverImage()
+        requestUserData()
 
         return mView
     }
@@ -72,6 +70,22 @@ class OverviewFragment : Fragment() {
                     mView.detail_image.setImageDrawable(drawable)
                 }
             }
+        }
+    }
+
+    private fun requestUserData(){
+        val queryMap = HashMap<String, String>()
+        queryMap.put(Constants.QUERY_ID, Constants.USER_TEST_ID)
+        overviewViewModel.getUserProfile(queryMap)
+        overviewViewModel.currentUser.observe(viewLifecycleOwner){ user ->
+            when(user){
+                checkNotNull(user) -> {
+                    mView.detail_seller_first_name.text = user.firstName
+                    mView.detail_seller_last_name.text = user.lastName
+                    mView.detail_seller_bio.text = user.bio
+                }
+            }
+
         }
     }
 

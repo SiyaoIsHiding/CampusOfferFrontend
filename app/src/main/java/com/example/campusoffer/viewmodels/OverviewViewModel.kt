@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.campusoffer.data.ProductRepository
 import com.example.campusoffer.models.Product
+import com.example.campusoffer.models.User
 import kotlinx.coroutines.launch
 
 class OverviewViewModel @ViewModelInject constructor(
@@ -24,6 +25,16 @@ class OverviewViewModel @ViewModelInject constructor(
                     imageBitmap.value = drawable
                 }
             }
+        }
+    }
+
+
+    var currentUser : MutableLiveData<User?> = MutableLiveData()
+
+    fun getUserProfile(queries: Map<String, String>) = viewModelScope.launch {
+        val res = productRepository.remote.getUserByID(queries)
+        if(res.isSuccessful && res.body() != null){
+            currentUser.postValue(res.body()!!)
         }
     }
 }
